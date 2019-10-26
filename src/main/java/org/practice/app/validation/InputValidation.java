@@ -2,7 +2,14 @@ package org.practice.app.validation;
 
 public class InputValidation {
 
-    public static boolean hasExtraSymbols(String expression){
-        return !expression.matches("[()+\\-*/\\d]+");
+    private final String expression;
+
+    public InputValidation(String expression){
+        this.expression = expression;
     }
+
+    public boolean hasExtraSymbols(){
+        return !this.expression.matches("[()+\\-*/\\d]+");
+    }
+
 }

@@ -4,10 +4,10 @@ import org.practice.app.parser.ExpressionParser;
 import org.practice.app.parser.InputParser;
 import org.practice.app.parser.ProcessorException;
 import org.practice.app.util.ParenthesisUtil;
+import org.practice.app.validation.InputValidation;
 
 import static org.practice.app.parser.InputParser.removeExtraSpaces;
 import static org.practice.app.parser.InputParser.replaceBracketsWithParenthesis;
-import static org.practice.app.validation.InputValidation.hasExtraSymbols;
 
 public class AdvancedCalculator {
 
@@ -31,7 +31,9 @@ public class AdvancedCalculator {
     }
 
     public CalculationResult evaluate(String expression) {
-        if(hasExtraSymbols(expression)){
+        InputValidation validation = new InputValidation(expression);
+
+        if(validation.hasExtraSymbols()){
             return new CalculationResult(String.format(HAS_UNSUPPORTED_SYMBOLS, expression));
         }
 

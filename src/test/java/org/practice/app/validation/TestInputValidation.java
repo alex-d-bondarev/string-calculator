@@ -7,15 +7,17 @@ import static org.junit.Assert.assertTrue;
 
 public class TestInputValidation {
 
+    private InputValidation validation;
+
     @Test
     public void testExpressionWithValidChars(){
-        String testInput = "1+2*(4-3/5)";
-        assertFalse(InputValidation.hasExtraSymbols(testInput));
+        validation = new InputValidation("1+2*(4-3/5)");
+        assertFalse(validation.hasExtraSymbols());
     }
 
     @Test
     public void testExpressionWithInvalidChars(){
-        String testInput = "abc&^%$1+2*(4-3/5)";
-        assertTrue(InputValidation.hasExtraSymbols(testInput));
+        validation = new InputValidation("abc&^%$1+2*(4-3/5)");
+        assertTrue(validation.hasExtraSymbols());
     }
 }
