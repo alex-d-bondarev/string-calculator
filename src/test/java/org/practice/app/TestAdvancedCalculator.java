@@ -1,14 +1,34 @@
 package org.practice.app;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.practice.app.parser.ProcessorException;
+
+import static org.junit.Assert.assertEquals;
 
 
 public class TestAdvancedCalculator {
     private static final AdvancedCalculator calc = new AdvancedCalculator();
     private static final double DELTA = 0d;
 
+    @Test
+    public void charsAreUnexpected(){
+        String testExpression = "abc";
+        String expectedResult = "Given expression 'abc' contains unexpected symbols.";
+        CalculationResult result = calc.evaluate(testExpression);
+
+        assertEquals(expectedResult, result.getResult());
+    }
+
+    @Test
+    public void unsupportedOperandsAreUnexpected(){
+        String testExpression = "2^2";
+        String expectedResult = "Given expression '2^2' contains unexpected symbols.";
+        CalculationResult result = calc.evaluate(testExpression);
+
+        assertEquals(expectedResult, result.getResult());
+    }
+
+    // All tests below are planned for deprecation
     @Test(expected = ProcessorException.class)
     public void unbalancedParenthesisNotAllowed() throws ProcessorException {
         String expression = "(10";
@@ -32,7 +52,7 @@ public class TestAdvancedCalculator {
         String expression = "10";
         double result = 10d;
 
-        Assert.assertEquals(result, calc.calculate(expression), DELTA);
+        assertEquals(result, calc.calculate(expression), DELTA);
     }
 
     @Test
@@ -40,7 +60,7 @@ public class TestAdvancedCalculator {
         String expression = "{10}";
         double result = 10d;
 
-        Assert.assertEquals(result, calc.calculate(expression), DELTA);
+        assertEquals(result, calc.calculate(expression), DELTA);
     }
 
     @Test
@@ -48,7 +68,7 @@ public class TestAdvancedCalculator {
         String expression = "2 + 2";
         double result = 4d;
 
-        Assert.assertEquals(result, calc.calculate(expression), DELTA);
+        assertEquals(result, calc.calculate(expression), DELTA);
     }
 
     @Test
@@ -56,7 +76,7 @@ public class TestAdvancedCalculator {
         String expression = "2 - 2";
         double result = 0;
 
-        Assert.assertEquals(result, calc.calculate(expression), DELTA);
+        assertEquals(result, calc.calculate(expression), DELTA);
     }
 
     @Test
@@ -64,7 +84,7 @@ public class TestAdvancedCalculator {
         String expression = "2 * 2";
         double result = 4d;
 
-        Assert.assertEquals(result, calc.calculate(expression), DELTA);
+        assertEquals(result, calc.calculate(expression), DELTA);
     }
 
     @Test
@@ -72,7 +92,7 @@ public class TestAdvancedCalculator {
         String expression = "2 / 2";
         double result = 1d;
 
-        Assert.assertEquals(result, calc.calculate(expression), DELTA);
+        assertEquals(result, calc.calculate(expression), DELTA);
     }
 
     @Test
@@ -80,7 +100,7 @@ public class TestAdvancedCalculator {
         String expression = "1+2-3/4";
         double result = 2.25d;
 
-        Assert.assertEquals(result, calc.calculate(expression), DELTA);
+        assertEquals(result, calc.calculate(expression), DELTA);
     }
 
     @Test
@@ -88,7 +108,7 @@ public class TestAdvancedCalculator {
         String expression = "2 + 2 * 2";
         double result = 6d;
 
-        Assert.assertEquals(result, calc.calculate(expression), DELTA);
+        assertEquals(result, calc.calculate(expression), DELTA);
     }
 
     @Test
@@ -96,7 +116,7 @@ public class TestAdvancedCalculator {
         String expression = "2 - 2 / 2";
         double result = 1d;
 
-        Assert.assertEquals(result, calc.calculate(expression), DELTA);
+        assertEquals(result, calc.calculate(expression), DELTA);
     }
 
     @Test
@@ -104,7 +124,7 @@ public class TestAdvancedCalculator {
         String expression = "{3*4} - [2 + 3] + (9/3)";
         double result = 10d;
 
-        Assert.assertEquals(result, calc.calculate(expression), DELTA);
+        assertEquals(result, calc.calculate(expression), DELTA);
     }
 
     @Test
@@ -112,7 +132,7 @@ public class TestAdvancedCalculator {
         String expression = "10 - 2 + 4 - 5 + 6";
         double result = 13d;
 
-        Assert.assertEquals(result, calc.calculate(expression), DELTA);
+        assertEquals(result, calc.calculate(expression), DELTA);
     }
 
     @Test
@@ -120,6 +140,6 @@ public class TestAdvancedCalculator {
         String expression = "10 - 2 - 4 + 5 - 6";
         double result = 3d;
 
-        Assert.assertEquals(result, calc.calculate(expression), DELTA);
+        assertEquals(result, calc.calculate(expression), DELTA);
     }
 }

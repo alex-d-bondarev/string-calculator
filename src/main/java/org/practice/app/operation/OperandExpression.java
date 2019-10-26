@@ -1,4 +1,4 @@
-package org.practice.app.expression;
+package org.practice.app.operation;
 
 public abstract class OperandExpression implements Expression {
     protected Expression left;

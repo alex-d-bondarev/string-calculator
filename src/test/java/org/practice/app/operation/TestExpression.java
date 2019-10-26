@@ -1,4 +1,4 @@
-package org.practice.app.expression;
+package org.practice.app.operation;
 
 import org.junit.Test;
 

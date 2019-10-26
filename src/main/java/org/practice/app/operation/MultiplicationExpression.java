@@ -1,4 +1,4 @@
-package org.practice.app.expression;
+package org.practice.app.operation;
 
 public class MultiplicationExpression extends OperandExpression {
     public MultiplicationExpression(Expression left, Expression right) {

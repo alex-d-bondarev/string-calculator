@@ -1,4 +1,4 @@
-package org.practice.app.expression;
+package org.practice.app.operation;
 
 public class DifferenceExpression extends OperandExpression {
     public DifferenceExpression(Expression left, Expression right) {

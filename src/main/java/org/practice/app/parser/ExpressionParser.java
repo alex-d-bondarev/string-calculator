@@ -1,6 +1,6 @@
 package org.practice.app.parser;
 
-import org.practice.app.expression.*;
+import org.practice.app.operation.*;
 import org.practice.app.util.ParenthesisUtil;
 
 /*
@@ -9,18 +9,6 @@ import org.practice.app.util.ParenthesisUtil;
 public class ExpressionParser {
 
     /**
-     * We can parse from left to right. This will result into the following cases:
-     * 1. expression like "10 - 2 + 4 - 5 + 6 = 13" will be calculated as "10 - (2 + (4 - (5 + 6))) = 15"
-     * 2. expression like "10 - 2 - 4 + 5 - 6 = 3" will be calculated as "10 - (2 - (4 + (5 - 6))) = 11"
-     *
-     * There are 2 possible solutions:
-     * 1. Update parsed results afterwards and invert all operands to the left of each difference operand
-     * 2. Parse from right to left.
-     *
-     * Second option is easier and avoids spaghetti code. The parsed expressions will look like:
-     * 1. expression like "10 - 2 + 4 - 5 + 6 = 13" will be calculated as "((((10 - 2) + 4) - 5) + 6) = 13"
-     * 2. expression like "10 - 2 - 4 + 5 - 6 = 3" will be calculated as "((((10 - 2) - 4) + 5) - 6) = 3"
-     *
      * @param expression string to parse
      * @return Expression tree that is ready for calculation
      */
