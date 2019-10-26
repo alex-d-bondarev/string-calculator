@@ -4,7 +4,7 @@ import org.practice.app.parser.ExpressionParser;
 import org.practice.app.parser.InputParser;
 import org.practice.app.parser.ProcessorException;
 import org.practice.app.util.ParenthesisUtil;
-import org.practice.app.validation.InputValidation;
+import org.practice.app.input.InputValidation;
 
 import static org.practice.app.parser.InputParser.removeExtraSpaces;
 import static org.practice.app.parser.InputParser.replaceBracketsWithParenthesis;

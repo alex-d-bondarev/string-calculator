@@ -1,4 +1,4 @@
-package org.practice.app.validation;
+package org.practice.app.input;
 
 public class InputValidation {
 
