@@ -12,11 +12,13 @@ Only sum (+), difference (-), multiplication (*) and division (/) operands are s
 How it works (in progress)
 ------------
 
+1. [x] Remove all spaces
+1. [x] Replace all different kinds of brackets with parenthesis
 1. [x] Ensure no extra symbols were provided
-1. [ ] Remove all spaces
-1. [ ] Replace all different kinds of brackets with parenthesis
+1. [x] Ensure parenthesis are balanced
 1. [ ] Make each symbol into a List of undefined operations
 1. [ ] Parse undefined operations into more specific operations:
+    1. [ ] Parse all expressions within any parenthesis into a new undefined operation leafs
     1. [ ] Parse all negative numbers into `NumberOperation`
     1. [ ] Parse all positive numbers into `NumberOperation`
     1. [ ] Parse multiplication and division operands as priority operands into corresponding operations

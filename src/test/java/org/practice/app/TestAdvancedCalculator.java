@@ -28,6 +28,15 @@ public class TestAdvancedCalculator {
         assertEquals(expectedResult, result.getResult());
     }
 
+    @Test
+    public void unbalancedBracketsAreUnexpected(){
+        String testExpression = "2 + 2)";
+        String expectedResult = "Given expression '2 + 2)' has unbalanced brackets.";
+        CalculationResult result = calc.evaluate(testExpression);
+
+        assertEquals(expectedResult, result.getResult());
+    }
+
     // All tests below are planned for deprecation
     @Test(expected = ProcessorException.class)
     public void unbalancedParenthesisNotAllowed() throws ProcessorException {
