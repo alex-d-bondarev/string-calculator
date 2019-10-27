@@ -26,4 +26,10 @@ public class ExpressionInitializer {
     public ExpressionValidator getValidator(){
         return new ExpressionValidator(expression);
     }
+
+    public ExpressionValidator initializeValidator(){
+        return this.removeExtraSpaces().
+                replaceBracketsWithParenthesis().
+                getValidator();
+    }
 }

@@ -33,7 +33,7 @@ public class AdvancedCalculator {
     }
 
     public CalculationResult evaluate(String expression) {
-        ExpressionValidator validator = initializeExpressionForValidator(expression);
+        ExpressionValidator validator = new ExpressionInitializer(expression).initializeValidator();
 
         if (validator.hasExtraSymbols()) {
             return new CalculationResult(String.format(HAS_UNSUPPORTED_SYMBOLS, expression));
@@ -43,12 +43,5 @@ public class AdvancedCalculator {
 
         // This is temporary stub
         return null;
-    }
-
-    private ExpressionValidator initializeExpressionForValidator(String expression) {
-        return new ExpressionInitializer(expression).
-                removeExtraSpaces().
-                replaceBracketsWithParenthesis().
-                getValidator();
     }
 }
