@@ -5,6 +5,7 @@ import org.practice.app.expression.ExpressionValidator;
 import org.practice.app.parser.ExpressionParser;
 import org.practice.app.parser.InputParser;
 import org.practice.app.parser.ProcessorException;
+import org.practice.app.parser.RawExpressionParser;
 import org.practice.app.util.ParenthesisUtil;
 
 import static org.practice.app.parser.InputParser.removeExtraSpaces;
@@ -33,15 +34,26 @@ public class AdvancedCalculator {
     }
 
     public CalculationResult evaluate(String expression) {
-        ExpressionValidator validator = new ExpressionInitializer(expression).initializeValidator();
+        ExpressionInitializer initializer = new ExpressionInitializer(expression);
+        ExpressionValidator validator = initializer.initializeValidator();
 
-        if (validator.hasExtraSymbols()) {
-            return new CalculationResult(String.format(HAS_UNSUPPORTED_SYMBOLS, expression));
+        if (validator.hasUnsupportedSymbols()) {
+            return getUnsupportedSymbolsCalculationResultFrom(expression);
         } else if (validator.hasUnbalancedParentheses()) {
-            return new CalculationResult(String.format(HAS_UNBALANCED_BRACKETS, expression));
-        }
+            return getUnbalancedBracketsCalculationResultFrom(expression);
+        } else {
 
-        // This is temporary stub
-        return null;
+            RawExpressionParser parser = initializer.getParser().parseToUndefinedOperations();
+            // This is temporary stub
+            return null;
+        }
+    }
+
+    private CalculationResult getUnsupportedSymbolsCalculationResultFrom(String expression){
+        return new CalculationResult(String.format(HAS_UNSUPPORTED_SYMBOLS, expression));
+    }
+
+    private CalculationResult getUnbalancedBracketsCalculationResultFrom(String expression){
+        return new CalculationResult(String.format(HAS_UNBALANCED_BRACKETS, expression));
     }
 }

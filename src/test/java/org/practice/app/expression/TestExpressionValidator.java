@@ -12,13 +12,13 @@ public class TestExpressionValidator {
     @Test
     public void testExpressionWithValidChars(){
         validation = new ExpressionValidator("1+2*(4-3/5)");
-        assertFalse(validation.hasExtraSymbols());
+        assertFalse(validation.hasUnsupportedSymbols());
     }
 
     @Test
     public void testExpressionWithInvalidChars(){
         validation = new ExpressionValidator("abc&^%$1+2*(4-3/5)");
-        assertTrue(validation.hasExtraSymbols());
+        assertTrue(validation.hasUnsupportedSymbols());
     }
 
     @Test

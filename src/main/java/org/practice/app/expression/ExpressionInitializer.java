@@ -1,5 +1,7 @@
 package org.practice.app.expression;
 
+import org.practice.app.parser.RawExpressionParser;
+
 public class ExpressionInitializer {
     private String expression;
 
@@ -31,5 +33,9 @@ public class ExpressionInitializer {
         return this.removeExtraSpaces().
                 replaceBracketsWithParenthesis().
                 getValidator();
+    }
+
+    public RawExpressionParser getParser(){
+        return new RawExpressionParser(expression);
     }
 }

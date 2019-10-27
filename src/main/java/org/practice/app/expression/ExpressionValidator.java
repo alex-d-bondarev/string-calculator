@@ -10,7 +10,7 @@ public class ExpressionValidator {
         this.expression = expression;
     }
 
-    public boolean hasExtraSymbols() {
+    public boolean hasUnsupportedSymbols() {
         return !expression.matches("[()+\\-*/\\d]+");
     }
 
