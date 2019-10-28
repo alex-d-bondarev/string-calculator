@@ -4,9 +4,12 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.junit.Test;
+import org.practice.app.operation.raw.SingleUndefinedOperation;
+import org.practice.app.operation.raw.UndefinedOperationGroup;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.assertEquals;
 
 public class TestRawExpressionParser {
 
@@ -15,12 +18,14 @@ public class TestRawExpressionParser {
         String testExpression = "2";
         int expectedOperationsSize = 1;
 
-        List<UndefinedOperationParser> operations =
+        UndefinedOperationGroup actualGroup =
                 new RawExpressionParser(testExpression).
                         parseToUndefinedOperations().
-                        getUndefinedOperationParsers();
+                        getUndefinedOperationGroup();
 
-        assertThat(operations.size(), is(expectedOperationsSize));
+        assertThat(
+                actualGroup.getUndefinedOperations().size(),
+                is(expectedOperationsSize));
     }
 
     @Test
@@ -28,29 +33,31 @@ public class TestRawExpressionParser {
         String testExpression = "2+2";
         int expectedOperationsSize = 3;
 
-        List<UndefinedOperationParser> operations =
+        UndefinedOperationGroup actualGroup =
                 new RawExpressionParser(testExpression).
                         parseToUndefinedOperations().
-                        getUndefinedOperationParsers();
+                        getUndefinedOperationGroup();
 
-        assertThat(operations.size(), is(expectedOperationsSize));
+        assertThat(
+                actualGroup.getUndefinedOperations().size(),
+                is(expectedOperationsSize));
     }
 
     @Test
     public void testUndefinedOperationsOrderIsKept() {
         String testExpression = "1+2*3";
-        List<UndefinedOperationParser> expectedList = getOrderedListForTes();
+        UndefinedOperationGroup expectedGroup = getTestUndefinedOperationGroup();
 
-        List<UndefinedOperationParser> operations =
+        UndefinedOperationGroup actualGroup =
                 new RawExpressionParser(testExpression).
                         parseToUndefinedOperations().
-                        getUndefinedOperationParsers();
+                        getUndefinedOperationGroup();
 
-        assertThat(operations, is(expectedList));
+        assertEquals(expectedGroup, actualGroup);
     }
 
-    private List<UndefinedOperationParser> getOrderedListForTes() {
-        List<UndefinedOperationParser> orderedList = new LinkedList<>();
+    private UndefinedOperationGroup getTestUndefinedOperationGroup() {
+        List<SingleUndefinedOperation> orderedList = new LinkedList<>();
 
         orderedList.add(getUndefinedOperationParser('1'));
         orderedList.add(getUndefinedOperationParser('+'));
@@ -58,10 +65,10 @@ public class TestRawExpressionParser {
         orderedList.add(getUndefinedOperationParser('*'));
         orderedList.add(getUndefinedOperationParser('3'));
 
-        return orderedList;
+        return new UndefinedOperationGroup(orderedList);
     }
 
-    private UndefinedOperationParser getUndefinedOperationParser(char ch) {
-        return new UndefinedOperationParser(ch);
+    private SingleUndefinedOperation getUndefinedOperationParser(char ch) {
+        return new SingleUndefinedOperation(ch);
     }
 }

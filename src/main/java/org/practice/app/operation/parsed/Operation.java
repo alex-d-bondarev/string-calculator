@@ -1,4 +1,4 @@
-package org.practice.app.operation;
+package org.practice.app.operation.parsed;
 
 public interface Operation {
     double evaluate();
