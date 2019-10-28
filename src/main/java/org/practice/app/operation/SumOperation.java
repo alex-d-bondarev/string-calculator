@@ -1,8 +1,8 @@
 package org.practice.app.operation;
 
-public class SumExpression extends OperandExpression {
+public class SumOperation extends OperandOperation {
 
-    public SumExpression(Expression left, Expression right){
+    public SumOperation(Operation left, Operation right){
         super(left, right);
     }
 

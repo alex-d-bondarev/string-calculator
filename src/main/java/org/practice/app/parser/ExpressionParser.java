@@ -10,9 +10,9 @@ public class ExpressionParser {
 
     /**
      * @param expression string to parse
-     * @return Expression tree that is ready for calculation
+     * @return Operation tree that is ready for calculation
      */
-    public static Expression parseExpression(String expression) {
+    public static Operation parseExpression(String expression) {
 
         if (!expression.isEmpty()) {
             if (isSurroundedWithParenthesis(expression)) {
@@ -21,7 +21,7 @@ public class ExpressionParser {
         }
 
         if (isNumber(expression)) {
-            return new NumberExpression(Double.parseDouble(expression));
+            return new NumberOperation(Double.parseDouble(expression));
         } else {
             int leftExpressionEnd = ParenthesisUtil.findStartIndexOfRightExpressionPart(expression);
             String leftExpression = expression.substring(0, leftExpressionEnd);
@@ -32,19 +32,19 @@ public class ExpressionParser {
         }
     }
 
-    private static Expression getOperandExpression(char operand, String left, String right) {
-        Expression leftExpression = parseExpression(left);
-        Expression rightExpression = parseExpression(right);
+    private static Operation getOperandExpression(char operand, String left, String right) {
+        Operation leftOperation = parseExpression(left);
+        Operation rightOperation = parseExpression(right);
 
         switch (operand) {
             case '+':
-                return new SumExpression(leftExpression, rightExpression);
+                return new SumOperation(leftOperation, rightOperation);
             case '-':
-                return new DifferenceExpression(leftExpression, rightExpression);
+                return new DifferenceOperation(leftOperation, rightOperation);
             case '*':
-                return new MultiplicationExpression(leftExpression, rightExpression);
+                return new MultiplicationOperation(leftOperation, rightOperation);
             case '/':
-                return new DivisionExpression(leftExpression, rightExpression);
+                return new DivisionOperation(leftOperation, rightOperation);
             default:
                 throw new RuntimeException("Unsupported operand " + operand);
         }

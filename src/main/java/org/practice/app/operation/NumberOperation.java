@@ -1,10 +1,10 @@
 package org.practice.app.operation;
 
-public class NumberExpression implements Expression {
+public class NumberOperation implements Operation {
 
     private double number;
 
-    public NumberExpression(double number){
+    public NumberOperation(double number){
         this.number = number;
     }
 

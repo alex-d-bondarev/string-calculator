@@ -1,7 +1,7 @@
 package org.practice.app.operation;
 
-public class DivisionExpression extends OperandExpression {
-    public DivisionExpression(Expression left, Expression right) {
+public class DivisionOperation extends OperandOperation {
+    public DivisionOperation(Operation left, Operation right) {
         super(left, right);
     }
 

@@ -1,7 +1,7 @@
 package org.practice.app.operation;
 
-public class DifferenceExpression extends OperandExpression {
-    public DifferenceExpression(Expression left, Expression right) {
+public class DifferenceOperation extends OperandOperation {
+    public DifferenceOperation(Operation left, Operation right) {
         super(left, right);
     }
 

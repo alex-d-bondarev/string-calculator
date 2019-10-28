@@ -1,5 +1,5 @@
 package org.practice.app.operation;
 
-public interface Expression {
+public interface Operation {
     double evaluate();
 }
