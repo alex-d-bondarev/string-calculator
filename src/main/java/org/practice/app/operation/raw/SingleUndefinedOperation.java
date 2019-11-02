@@ -26,4 +26,9 @@ public class SingleUndefinedOperation implements UndefinedOperation{
 
         return VALUE == other.getValue();
     }
+
+    @Override
+    public String toString() {
+        return Character.toString(VALUE);
+    }
 }

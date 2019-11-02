@@ -12,4 +12,9 @@ public class NumberOperation implements DefinedOperation {
     public double evaluate() {
         return number;
     }
+
+    @Override
+    public String toString() {
+        return Double.toString(number);
+    }
 }

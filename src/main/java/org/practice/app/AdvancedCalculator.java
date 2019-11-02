@@ -46,7 +46,7 @@ public class AdvancedCalculator {
             ParenthesisParser parser =
                     initializer.getParser().
                             parseToOperations().parseNegativeNumbers().parsePositiveNumbers().
-                            getParenthesisParser();
+                            getParenthesisParser().parseParenthesis();
             // This is a temporary stub
             return null;
         }

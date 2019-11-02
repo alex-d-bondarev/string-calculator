@@ -22,9 +22,8 @@ public class UndefinedOperationGroup implements UndefinedOperation {
         return operations;
     }
 
-    public UndefinedOperationGroup toStart(){
+    public void toStart(){
         position = START_POSITION;
-        return this;
     }
 
     public boolean hasNext(){
@@ -47,7 +46,7 @@ public class UndefinedOperationGroup implements UndefinedOperation {
         return position;
     }
 
-    public UndefinedOperation replaceBetween(Operation newOperation, int start, int end){
+    public UndefinedOperationGroup replaceBetween(Operation newOperation, int start, int end){
         operations.subList(start, end).clear();
         operations.add(start, newOperation);
         position = ++start;
@@ -67,5 +66,10 @@ public class UndefinedOperationGroup implements UndefinedOperation {
         UndefinedOperationGroup other = (UndefinedOperationGroup) o;
 
         return operations.equals(other.getOperations());
+    }
+
+    @Override
+    public String toString() {
+        return operations.toString();
     }
 }
