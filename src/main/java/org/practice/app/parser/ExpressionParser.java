@@ -10,9 +10,9 @@ public class ExpressionParser {
 
     /**
      * @param expression string to parse
-     * @return Operation tree that is ready for calculation
+     * @return DefinedOperation tree that is ready for calculation
      */
-    public static Operation parseExpression(String expression) {
+    public static DefinedOperation parseExpression(String expression) {
 
         if (!expression.isEmpty()) {
             if (isSurroundedWithParenthesis(expression)) {
@@ -32,9 +32,9 @@ public class ExpressionParser {
         }
     }
 
-    private static Operation getOperandExpression(char operand, String left, String right) {
-        Operation leftOperation = parseExpression(left);
-        Operation rightOperation = parseExpression(right);
+    private static DefinedOperation getOperandExpression(char operand, String left, String right) {
+        DefinedOperation leftOperation = parseExpression(left);
+        DefinedOperation rightOperation = parseExpression(right);
 
         switch (operand) {
             case '+':

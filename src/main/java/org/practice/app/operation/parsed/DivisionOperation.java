@@ -1,7 +1,7 @@
 package org.practice.app.operation.parsed;
 
 public class DivisionOperation extends OperandOperation {
-    public DivisionOperation(Operation left, Operation right) {
+    public DivisionOperation(DefinedOperation left, DefinedOperation right) {
         super(left, right);
     }
 

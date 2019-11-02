@@ -1,6 +1,6 @@
 package org.practice.app.operation.parsed;
 
-public class NumberOperation implements Operation {
+public class NumberOperation implements DefinedOperation {
 
     private double number;
 

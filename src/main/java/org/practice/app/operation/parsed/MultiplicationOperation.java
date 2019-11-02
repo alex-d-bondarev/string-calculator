@@ -1,7 +1,7 @@
 package org.practice.app.operation.parsed;
 
 public class MultiplicationOperation extends OperandOperation {
-    public MultiplicationOperation(Operation left, Operation right) {
+    public MultiplicationOperation(DefinedOperation left, DefinedOperation right) {
         super(left, right);
     }
 

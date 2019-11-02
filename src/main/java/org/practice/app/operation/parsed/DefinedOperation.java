@@ -1,5 +1,5 @@
 package org.practice.app.operation.parsed;
 
-public interface Operation {
+public interface DefinedOperation {
     double evaluate();
 }

@@ -2,7 +2,7 @@ package org.practice.app.operation.parsed;
 
 public class SumOperation extends OperandOperation {
 
-    public SumOperation(Operation left, Operation right){
+    public SumOperation(DefinedOperation left, DefinedOperation right){
         super(left, right);
     }
 
