@@ -42,14 +42,27 @@ public class UndefinedOperationGroup implements UndefinedOperation {
         return operations.get(position - 1);
     }
 
+    public Operation moveAndGetPrevious(){
+        return operations.get(--position);
+    }
+
     public int getPosition(){
         return position;
+    }
+
+    public void setPosition(int newPosition) {
+        position = newPosition;
     }
 
     public UndefinedOperationGroup replaceBetween(Operation newOperation, int start, int end){
         operations.subList(start, end).clear();
         operations.add(start, newOperation);
         position = ++start;
+        return this;
+    }
+
+    public UndefinedOperationGroup addOperationTo(Operation newOperation, int index){
+        operations.add(index, newOperation);
         return this;
     }
 

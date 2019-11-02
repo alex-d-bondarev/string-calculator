@@ -17,8 +17,8 @@ public class NumberParser {
         return undefinedOperationGroup;
     }
 
-    public ParenthesisParser getParenthesisParser(){
-        return new ParenthesisParser(undefinedOperationGroup);
+    public PriorityOperandsParser getPriorityOperandsParser(){
+        return new PriorityOperandsParser(undefinedOperationGroup);
     }
 
     public NumberParser parseNegativeNumbers() {

@@ -35,7 +35,7 @@ public class ExpressionInitializer {
                 getValidator();
     }
 
-    public RawExpressionParser getParser(){
+    public RawExpressionParser getRawExpressionParser(){
         return new RawExpressionParser(expression);
     }
 }

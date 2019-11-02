@@ -44,8 +44,9 @@ public class AdvancedCalculator {
         } else {
 
             ParenthesisParser parser =
-                    initializer.getParser().
+                    initializer.getRawExpressionParser().
                             parseToOperations().parseNegativeNumbers().parsePositiveNumbers().
+                            getPriorityOperandsParser().parsePriorityOperands().
                             getParenthesisParser().parseParenthesis();
             // This is a temporary stub
             return null;
