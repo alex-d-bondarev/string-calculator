@@ -3,7 +3,7 @@ package org.practice.app.parser;
 import org.practice.app.operation.raw.SingleUndefinedOperation;
 import org.practice.app.operation.raw.UndefinedOperationGroup;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 public class RawExpressionParser {
@@ -14,13 +14,13 @@ public class RawExpressionParser {
         this.expression = expression;
     }
 
-    public RawExpressionParser parseToUndefinedOperations() {
+    public RawExpressionParser parseToOperations() {
         undefinedOperationGroup =
                 new UndefinedOperationGroup(
                         expression.
                                 chars().
                                 mapToObj(ch -> new SingleUndefinedOperation((char) ch)).
-                                collect(Collectors.toCollection(LinkedList::new)));
+                                collect(Collectors.toCollection(ArrayList::new)));
 
         return this;
     }

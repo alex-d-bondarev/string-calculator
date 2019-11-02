@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.junit.Test;
+import org.practice.app.operation.Operation;
 import org.practice.app.operation.raw.SingleUndefinedOperation;
 import org.practice.app.operation.raw.UndefinedOperationGroup;
 
@@ -20,11 +21,11 @@ public class TestRawExpressionParser {
 
         UndefinedOperationGroup actualGroup =
                 new RawExpressionParser(testExpression).
-                        parseToUndefinedOperations().
+                        parseToOperations().
                         getUndefinedOperationGroup();
 
         assertThat(
-                actualGroup.getUndefinedOperations().size(),
+                actualGroup.getOperations().size(),
                 is(expectedOperationsSize));
     }
 
@@ -35,11 +36,11 @@ public class TestRawExpressionParser {
 
         UndefinedOperationGroup actualGroup =
                 new RawExpressionParser(testExpression).
-                        parseToUndefinedOperations().
+                        parseToOperations().
                         getUndefinedOperationGroup();
 
         assertThat(
-                actualGroup.getUndefinedOperations().size(),
+                actualGroup.getOperations().size(),
                 is(expectedOperationsSize));
     }
 
@@ -50,14 +51,14 @@ public class TestRawExpressionParser {
 
         UndefinedOperationGroup actualGroup =
                 new RawExpressionParser(testExpression).
-                        parseToUndefinedOperations().
+                        parseToOperations().
                         getUndefinedOperationGroup();
 
         assertEquals(expectedGroup, actualGroup);
     }
 
     private UndefinedOperationGroup getTestUndefinedOperationGroup() {
-        List<SingleUndefinedOperation> orderedList = new LinkedList<>();
+        List<Operation> orderedList = new LinkedList<>();
 
         orderedList.add(getUndefinedOperationParser('1'));
         orderedList.add(getUndefinedOperationParser('+'));

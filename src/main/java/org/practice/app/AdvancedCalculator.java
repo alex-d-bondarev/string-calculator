@@ -43,7 +43,7 @@ public class AdvancedCalculator {
             return getUnbalancedBracketsCalculationResultFrom(expression);
         } else {
 
-            RawExpressionParser parser = initializer.getParser().parseToUndefinedOperations();
+            RawExpressionParser parser = initializer.getParser().parseToOperations();
             // This is temporary stub
             return null;
         }

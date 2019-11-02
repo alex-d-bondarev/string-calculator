@@ -1,22 +1,24 @@
 package org.practice.app.operation.raw;
 
 
+import org.practice.app.operation.Operation;
+
 import java.util.List;
 
 public class UndefinedOperationGroup implements UndefinedOperation {
     private final char VALUE = '_';
-    private List<SingleUndefinedOperation> undefinedOperations;
+    private List<Operation> operations;
 
-    public UndefinedOperationGroup(List<SingleUndefinedOperation> operations){
-        undefinedOperations = operations;
+    public UndefinedOperationGroup(List<Operation> operations){
+        this.operations = operations;
     }
 
     public char getValue() {
         return VALUE;
     }
 
-    public List<SingleUndefinedOperation> getUndefinedOperations() {
-        return undefinedOperations;
+    public List<Operation> getOperations() {
+        return operations;
     }
 
     @Override
@@ -31,6 +33,6 @@ public class UndefinedOperationGroup implements UndefinedOperation {
 
         UndefinedOperationGroup other = (UndefinedOperationGroup) o;
 
-        return undefinedOperations.equals(other.getUndefinedOperations());
+        return operations.equals(other.getOperations());
     }
 }
