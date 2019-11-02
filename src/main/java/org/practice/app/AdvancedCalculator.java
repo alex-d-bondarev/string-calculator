@@ -4,7 +4,7 @@ import org.practice.app.expression.ExpressionInitializer;
 import org.practice.app.expression.ExpressionValidator;
 import org.practice.app.parser.ExpressionParser;
 import org.practice.app.parser.InputParser;
-import org.practice.app.parser.NumberParser;
+import org.practice.app.parser.ParenthesisParser;
 import org.practice.app.parser.ProcessorException;
 import org.practice.app.util.ParenthesisUtil;
 
@@ -43,8 +43,10 @@ public class AdvancedCalculator {
             return getUnbalancedBracketsCalculationResultFrom(expression);
         } else {
 
-            NumberParser parser =
-                    initializer.getParser().parseToOperations().parseNegativeNumbers().parsePositiveNumbers();
+            ParenthesisParser parser =
+                    initializer.getParser().
+                            parseToOperations().parseNegativeNumbers().parsePositiveNumbers().
+                            getParenthesisParser();
             // This is a temporary stub
             return null;
         }

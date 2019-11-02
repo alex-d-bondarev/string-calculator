@@ -17,6 +17,10 @@ public class NumberParser {
         return undefinedOperationGroup;
     }
 
+    public ParenthesisParser getParenthesisParser(){
+        return new ParenthesisParser(undefinedOperationGroup);
+    }
+
     public NumberParser parseNegativeNumbers() {
         undefinedOperationGroup.toStart();
         UndefinedOperation currentUndefinedOperation;
