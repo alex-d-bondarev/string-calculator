@@ -22,9 +22,9 @@ How it works (in progress)
     1. [x] Convert each symbol into a List of undefined operations
     1. [x] Parse all negative numbers into `NumberOperation`-s
     1. [x] Parse all positive numbers into `NumberOperation`
+    1. [ ] Add parenthesis for multiplication and division operands as priority operands
     1. [x] Parse all expressions within any parenthesis into a new undefined operation groups
-    1. [ ] Parse multiplication and division operands as priority operands into corresponding operations
-    1. [ ] Parse sum and difference expressions as the rest from right to left\* into corresponding operations
+    1. [ ] Parse the rest of expression from right to left\* into corresponding operations
 1. [ ] Evaluate received operations tree into expression result
 
 \* Note:
