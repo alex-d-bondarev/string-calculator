@@ -5,11 +5,11 @@ import org.practice.app.operation.parsed.NumberOperation;
 import org.practice.app.operation.raw.UndefinedOperation;
 import org.practice.app.operation.raw.UndefinedOperationGroup;
 
-public class OperationParser {
+public class NumberParser {
     private static final char MINUS_CHAR = '-';
     private UndefinedOperationGroup undefinedOperationGroup;
 
-    public OperationParser(UndefinedOperationGroup undefinedOperationGroup) {
+    public NumberParser(UndefinedOperationGroup undefinedOperationGroup) {
         this.undefinedOperationGroup = undefinedOperationGroup;
     }
 
@@ -17,7 +17,7 @@ public class OperationParser {
         return undefinedOperationGroup;
     }
 
-    public OperationParser parseNegativeNumbers() {
+    public NumberParser parseNegativeNumbers() {
         undefinedOperationGroup.toStart();
         UndefinedOperation currentUndefinedOperation;
         boolean previousIsDigit;
@@ -34,7 +34,7 @@ public class OperationParser {
         return this;
     }
 
-    public OperationParser parsePositiveNumbers() {
+    public NumberParser parsePositiveNumbers() {
         undefinedOperationGroup.toStart();
         UndefinedOperation currentUndefinedOperation;
         Operation currentOperation;

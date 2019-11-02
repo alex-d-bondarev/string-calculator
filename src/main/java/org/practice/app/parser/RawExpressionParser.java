@@ -14,7 +14,7 @@ public class RawExpressionParser {
         this.expression = expression;
     }
 
-    public OperationParser parseToOperations() {
+    public NumberParser parseToOperations() {
         undefinedOperationGroup =
                 new UndefinedOperationGroup(
                         expression.
@@ -22,7 +22,7 @@ public class RawExpressionParser {
                                 mapToObj(ch -> new SingleUndefinedOperation((char) ch)).
                                 collect(Collectors.toCollection(ArrayList::new)));
 
-        return new OperationParser(undefinedOperationGroup);
+        return new NumberParser(undefinedOperationGroup);
     }
 
     public UndefinedOperationGroup getUndefinedOperationGroup() {
