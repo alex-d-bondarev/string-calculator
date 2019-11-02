@@ -1,5 +1,7 @@
 package org.practice.app.operation.raw;
 
-public interface UndefinedOperation {
+import org.practice.app.operation.Operation;
+
+public interface UndefinedOperation extends Operation {
     char getValue();
 }
