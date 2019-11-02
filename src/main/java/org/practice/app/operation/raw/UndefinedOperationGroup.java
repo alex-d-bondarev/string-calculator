@@ -5,9 +5,10 @@ import org.practice.app.operation.Operation;
 import java.util.List;
 
 public class UndefinedOperationGroup implements UndefinedOperation {
-    private final char VALUE = '_';
+    private static final int START_POSITION = -1;
+    private static final char VALUE = '_';
     private List<Operation> operations;
-    private int position = 0;
+    private int position = START_POSITION;
 
     public UndefinedOperationGroup(List<Operation> operations){
         this.operations = operations;
@@ -22,7 +23,7 @@ public class UndefinedOperationGroup implements UndefinedOperation {
     }
 
     public UndefinedOperationGroup toStart(){
-        position = 0;
+        position = START_POSITION;
         return this;
     }
 
@@ -34,13 +35,8 @@ public class UndefinedOperationGroup implements UndefinedOperation {
         return position > 0;
     }
 
-    public Operation current(){
-        return operations.get(position);
-    }
-
     public Operation next(){
-        position++;
-        return current();
+        return operations.get(++position);
     }
 
     public Operation getPrevious(){
@@ -54,6 +50,7 @@ public class UndefinedOperationGroup implements UndefinedOperation {
     public UndefinedOperation replaceBetween(Operation newOperation, int start, int end){
         operations.subList(start, end).clear();
         operations.add(start, newOperation);
+        position = ++start;
         return this;
     }
 

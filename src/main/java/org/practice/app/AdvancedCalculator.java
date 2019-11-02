@@ -2,7 +2,10 @@ package org.practice.app;
 
 import org.practice.app.expression.ExpressionInitializer;
 import org.practice.app.expression.ExpressionValidator;
-import org.practice.app.parser.*;
+import org.practice.app.parser.ExpressionParser;
+import org.practice.app.parser.InputParser;
+import org.practice.app.parser.OperationParser;
+import org.practice.app.parser.ProcessorException;
 import org.practice.app.util.ParenthesisUtil;
 
 import static org.practice.app.parser.InputParser.removeExtraSpaces;
@@ -40,17 +43,18 @@ public class AdvancedCalculator {
             return getUnbalancedBracketsCalculationResultFrom(expression);
         } else {
 
-            OperationParser parser = initializer.getParser().parseToOperations().parseNegativeNumbers();
-            // This is temporary stub
+            OperationParser parser =
+                    initializer.getParser().parseToOperations().parseNegativeNumbers().parsePositiveNumbers();
+            // This is a temporary stub
             return null;
         }
     }
 
-    private CalculationResult getUnsupportedSymbolsCalculationResultFrom(String expression){
+    private CalculationResult getUnsupportedSymbolsCalculationResultFrom(String expression) {
         return new CalculationResult(String.format(HAS_UNSUPPORTED_SYMBOLS, expression));
     }
 
-    private CalculationResult getUnbalancedBracketsCalculationResultFrom(String expression){
+    private CalculationResult getUnbalancedBracketsCalculationResultFrom(String expression) {
         return new CalculationResult(String.format(HAS_UNBALANCED_BRACKETS, expression));
     }
 }
