@@ -13,6 +13,7 @@ This calculator parses given String expression and calculates its result. Input 
 - Multiplication *
 - Division **/**
 - Opening and closing brackets _(are processed as equal)_ **(** **)**, **{** **}** and **\[** **\]**  
+- Spaces
 
 How it works
 ------------
@@ -25,11 +26,11 @@ How it works
     1. Ensure parenthesis are balanced
 1.  Parse expression into more specific operations:
     1.  Convert each symbol into a List of undefined operations
-    1.  Parse all negative numbers into `NumberOperation`-s
+    1.  Parse all negative numbers into `NumberOperation`
     1.  Parse all positive numbers into `NumberOperation`
-    1.  Add parenthesis for multiplication and division operands as priority operands
-    1.  Parse all expressions within any parenthesis into a new undefined operation groups
-    1.  Parse the rest of expression from right to left\* into corresponding operations
+    1.  Surround multiplication and division operands with parenthesis to simplify further parsing
+    1.  Group all operands to simplify further parsing
+    1.  Parse received expression from right to left\* into specific operations as a tree
 1.  Evaluate received operations tree into expression result
 
 \* Note:
@@ -43,7 +44,7 @@ There are 2 possible options to overcome this issue:
 1. Update parsed results afterwards and invert all operands to the left of each difference operand
 1. Parse from right to left.
 
-Second option is easier and avoids spaghetti code. The parsed expressions will look like:
+Second option is easier and simplifies the code:
 1. expression like "10 - 2 + 4 - 5 + 6 = 13" will be calculated as "((((10 - 2) + 4) - 5) + 6) = 13"
 1. expression like "10 - 2 - 4 + 5 - 6 = 3" will be calculated as "((((10 - 2) - 4) + 5) - 6) = 3"
 ```
