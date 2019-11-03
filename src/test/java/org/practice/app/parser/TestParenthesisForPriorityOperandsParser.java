@@ -12,7 +12,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class TestPriorityOperandsParser {
+public class TestParenthesisForPriorityOperandsParser {
 
     @Test
     public void priorityOperandsParserCanBeCreated(){
@@ -20,7 +20,7 @@ public class TestPriorityOperandsParser {
         operations.add(new NumberOperation(1d));
 
         UndefinedOperationGroup operationsGroup = new UndefinedOperationGroup(operations);
-        PriorityOperandsParser parser = new PriorityOperandsParser(operationsGroup);
+        ParenthesisForPriorityOperandsParser parser = new ParenthesisForPriorityOperandsParser(operationsGroup);
     }
 
     @Test
@@ -30,7 +30,7 @@ public class TestPriorityOperandsParser {
 
         operations.add(new NumberOperation(1d));
         UndefinedOperationGroup operationsGroup = new UndefinedOperationGroup(operations);
-        PriorityOperandsParser parser = new PriorityOperandsParser(operationsGroup);
+        ParenthesisForPriorityOperandsParser parser = new ParenthesisForPriorityOperandsParser(operationsGroup);
 
         parser = parser.parsePriorityOperands();
         actualOperationsAmount = parser.getUndefinedOperationGroup().getOperations().size();
@@ -47,7 +47,7 @@ public class TestPriorityOperandsParser {
         operations.add(new SingleUndefinedOperation('+'));
         operations.add(new NumberOperation(1d));
         UndefinedOperationGroup operationsGroup = new UndefinedOperationGroup(operations);
-        PriorityOperandsParser parser = new PriorityOperandsParser(operationsGroup);
+        ParenthesisForPriorityOperandsParser parser = new ParenthesisForPriorityOperandsParser(operationsGroup);
 
         parser = parser.parsePriorityOperands();
         actualOperationsAmount = parser.getUndefinedOperationGroup().getOperations().size();
@@ -64,7 +64,7 @@ public class TestPriorityOperandsParser {
         operations.add(new SingleUndefinedOperation('-'));
         operations.add(new NumberOperation(1d));
         UndefinedOperationGroup operationsGroup = new UndefinedOperationGroup(operations);
-        PriorityOperandsParser parser = new PriorityOperandsParser(operationsGroup);
+        ParenthesisForPriorityOperandsParser parser = new ParenthesisForPriorityOperandsParser(operationsGroup);
 
         parser = parser.parsePriorityOperands();
         actualOperationsAmount = parser.getUndefinedOperationGroup().getOperations().size();
@@ -81,7 +81,7 @@ public class TestPriorityOperandsParser {
         operations.add(new SingleUndefinedOperation('*'));
         operations.add(new NumberOperation(1d));
         UndefinedOperationGroup operationsGroup = new UndefinedOperationGroup(operations);
-        PriorityOperandsParser parser = new PriorityOperandsParser(operationsGroup);
+        ParenthesisForPriorityOperandsParser parser = new ParenthesisForPriorityOperandsParser(operationsGroup);
 
         parser = parser.parsePriorityOperands();
         actualOperationsAmount = parser.getUndefinedOperationGroup().getOperations().size();
@@ -107,7 +107,7 @@ public class TestPriorityOperandsParser {
         operations.add(new SingleUndefinedOperation('/'));
         operations.add(new NumberOperation(1d));
         UndefinedOperationGroup operationsGroup = new UndefinedOperationGroup(operations);
-        PriorityOperandsParser parser = new PriorityOperandsParser(operationsGroup);
+        ParenthesisForPriorityOperandsParser parser = new ParenthesisForPriorityOperandsParser(operationsGroup);
 
         parser = parser.parsePriorityOperands();
         actualOperationsAmount = parser.getUndefinedOperationGroup().getOperations().size();
@@ -134,7 +134,7 @@ public class TestPriorityOperandsParser {
 
 
         UndefinedOperationGroup operationsGroup = new UndefinedOperationGroup(operations);
-        PriorityOperandsParser parser = new PriorityOperandsParser(operationsGroup);
+        ParenthesisForPriorityOperandsParser parser = new ParenthesisForPriorityOperandsParser(operationsGroup);
 
         parser = parser.parsePriorityOperands();
         actualOperationsAmount = parser.getUndefinedOperationGroup().getOperations().size();
@@ -151,7 +151,7 @@ public class TestPriorityOperandsParser {
         assertEquals(((SingleUndefinedOperation) nextAddedOpeningParen).getValue(), '(');
     }
 
-    private Operation getOperationFromParserByIndex(PriorityOperandsParser parser, int i) {
+    private Operation getOperationFromParserByIndex(ParenthesisForPriorityOperandsParser parser, int i) {
         return parser.getUndefinedOperationGroup().getOperations().get(i);
     }
 }

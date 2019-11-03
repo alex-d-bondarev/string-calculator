@@ -42,7 +42,7 @@ public class UndefinedOperationGroup implements UndefinedOperation {
         return operations.get(position - 1);
     }
 
-    public Operation moveAndGetPrevious(){
+    public Operation previous(){
         return operations.get(--position);
     }
 

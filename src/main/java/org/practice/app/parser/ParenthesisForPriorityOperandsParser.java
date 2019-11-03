@@ -5,14 +5,14 @@ import org.practice.app.operation.raw.SingleUndefinedOperation;
 import org.practice.app.operation.raw.UndefinedOperation;
 import org.practice.app.operation.raw.UndefinedOperationGroup;
 
-public class PriorityOperandsParser {
+public class ParenthesisForPriorityOperandsParser {
     private static final String PRIORITY_OPERANDS = "*/";
     private static final char OPENING_PARENTHESIS = '(';
     private static final char CLOSING_PARENTHESIS = ')';
 
     private UndefinedOperationGroup undefinedOperationGroup;
 
-    public PriorityOperandsParser(UndefinedOperationGroup operationsGroup) {
+    public ParenthesisForPriorityOperandsParser(UndefinedOperationGroup operationsGroup) {
         undefinedOperationGroup = operationsGroup;
     }
 
@@ -20,7 +20,7 @@ public class PriorityOperandsParser {
         return new ParenthesisParser(undefinedOperationGroup);
     }
 
-    public PriorityOperandsParser parsePriorityOperands() {
+    public ParenthesisForPriorityOperandsParser parsePriorityOperands() {
         int continueIndex = 0;
         undefinedOperationGroup.toStart();
         UndefinedOperation currentUndefinedOperation;
@@ -51,7 +51,7 @@ public class PriorityOperandsParser {
         Operation operationNow;
 
         while (undefinedOperationGroup.hasPrevious()) {
-            operationNow = undefinedOperationGroup.moveAndGetPrevious();
+            operationNow = undefinedOperationGroup.previous();
 
             if (operationNow instanceof UndefinedOperation) {
                 UndefinedOperation undefinedOperationNow = (UndefinedOperation) operationNow;
