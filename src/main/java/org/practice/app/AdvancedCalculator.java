@@ -7,19 +7,19 @@ import org.practice.app.parser.CharsParser;
 public class AdvancedCalculator {
 
     public CalculationResult evaluate(String expression) {
-        expression = new ExpressionInitializer(expression).prepareExpression();
-        ExpressionValidator validator = new ExpressionValidator(expression);
+        String preparedExpression = new ExpressionInitializer(expression).prepareExpression();
+        ExpressionValidator validator = new ExpressionValidator(preparedExpression);
 
         if (validator.hasUnsupportedSymbols()) {
-            return generateUnsupportedSymbolsMessage(expression);
+            return generateUnsupportedSymbolsMessage(preparedExpression);
         } else if (validator.hasUnbalancedParentheses()) {
-            return generateUnbalancedBracketsMessage(expression);
+            return generateUnbalancedBracketsMessage(preparedExpression);
         } else {
-            return parseAndEvaluateExpression(expression);
+            return parseAndEvaluate(preparedExpression);
         }
     }
 
-    private CalculationResult parseAndEvaluateExpression(String expression){
+    private CalculationResult parseAndEvaluate(String expression){
         double result =
                 new CharsParser(expression).convertCharsToUndefinedOperations().
                         parseNegativeNumbers().parsePositiveNumbers().
