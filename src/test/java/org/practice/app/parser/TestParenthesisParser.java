@@ -1,6 +1,7 @@
 package org.practice.app.parser;
 
 import org.junit.Test;
+import org.practice.app.expression.ExpressionInitializer;
 import org.practice.app.operation.Operation;
 import org.practice.app.operation.parsed.NumberOperation;
 import org.practice.app.operation.raw.SingleUndefinedOperation;
@@ -103,7 +104,7 @@ public class TestParenthesisParser {
 
     private ParenthesisParser generateParenthesisParserFromExpression(String expression){
         UndefinedOperationGroup operationsGroup =
-                new RawExpressionParser(expression).parseToOperations().getUndefinedOperationGroup();
+                new ExpressionInitializer(expression).convertCharsToUndefinedOperations().getUndefinedOperationGroup();
 
         return new ParenthesisParser(operationsGroup);
     }

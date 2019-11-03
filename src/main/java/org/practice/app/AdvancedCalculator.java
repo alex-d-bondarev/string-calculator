@@ -2,39 +2,41 @@ package org.practice.app;
 
 import org.practice.app.expression.ExpressionInitializer;
 import org.practice.app.expression.ExpressionValidator;
-import org.practice.app.operation.parsed.DefinedOperation;
 
 public class AdvancedCalculator {
-
-    private static final String HAS_UNSUPPORTED_SYMBOLS = "Given expression '%s' contains unexpected symbols.";
-    private static final String HAS_UNBALANCED_BRACKETS = "Given expression '%s' has unbalanced brackets.";
 
     public CalculationResult evaluate(String expression) {
         ExpressionInitializer initializer = new ExpressionInitializer(expression);
         ExpressionValidator validator = initializer.initializeValidator();
 
         if (validator.hasUnsupportedSymbols()) {
-            return getUnsupportedSymbolsCalculationResultFrom(expression);
+            return generateUnsupportedSymbolsMessage(expression);
         } else if (validator.hasUnbalancedParentheses()) {
-            return getUnbalancedBracketsCalculationResultFrom(expression);
+            return generateUnbalancedBracketsMessage(expression);
         } else {
-
-            DefinedOperation definedOperation =
-                    initializer.getRawExpressionParser().
-                            parseToOperations().parseNegativeNumbers().parsePositiveNumbers().
-                            getPriorityOperandsParser().parsePriorityOperands().
-                            getParenthesisParser().parseParenthesis().
-                            getDefinedOperationParser().parseToDefinedOperation();
-
-            return new CalculationResult(Double.toString(definedOperation.evaluate()));
+            return parseAndEvaluateExpression(initializer);
         }
     }
 
-    private CalculationResult getUnsupportedSymbolsCalculationResultFrom(String expression) {
-        return new CalculationResult(String.format(HAS_UNSUPPORTED_SYMBOLS, expression));
+    private CalculationResult parseAndEvaluateExpression(ExpressionInitializer initializer){
+        double result =
+                initializer.convertCharsToUndefinedOperations().
+                        parseNegativeNumbers().parsePositiveNumbers().
+                        getPriorityOperandsParser().parsePriorityOperands().
+                        getParenthesisParser().parseParenthesis().
+                        getDefinedOperationParser().parseToDefinedOperation().
+                        evaluate();
+
+        return new CalculationResult(Double.toString(result));
     }
 
-    private CalculationResult getUnbalancedBracketsCalculationResultFrom(String expression) {
-        return new CalculationResult(String.format(HAS_UNBALANCED_BRACKETS, expression));
+    private CalculationResult generateUnsupportedSymbolsMessage(String expression) {
+        String message = "Given expression '%s' contains unexpected symbols.";
+        return new CalculationResult(String.format(message, expression));
+    }
+
+    private CalculationResult generateUnbalancedBracketsMessage(String expression) {
+        String message = "Given expression '%s' has unbalanced brackets.";
+        return new CalculationResult(String.format(message, expression));
     }
 }
