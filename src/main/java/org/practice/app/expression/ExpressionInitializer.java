@@ -8,28 +8,17 @@ public class ExpressionInitializer {
     }
 
     public String prepareExpression() {
-        return removeExtraSpaces().replaceBracketsWithParenthesis().getExpression();
-    }
-
-    private ExpressionInitializer removeExtraSpaces() {
-        return new ExpressionInitializer(removeAllSpacesFrom(expression));
+        String preparedExpression = removeAllSpacesFrom(expression);
+        return replaceBracketsWithParenthesisFrom(preparedExpression);
     }
 
     private String removeAllSpacesFrom(String expression) {
         return expression.replaceAll(" ", "");
     }
 
-    private ExpressionInitializer replaceBracketsWithParenthesis() {
-        return new ExpressionInitializer(replaceBracketsWithParenthesisFrom(expression));
-    }
-
     private String replaceBracketsWithParenthesisFrom(String expression) {
         return expression.
                 replaceAll("[{\\[]", "(").
                 replaceAll("[]}]", ")");
-    }
-
-    private String getExpression() {
-        return expression;
     }
 }
