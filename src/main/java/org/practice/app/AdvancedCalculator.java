@@ -2,25 +2,26 @@ package org.practice.app;
 
 import org.practice.app.expression.ExpressionInitializer;
 import org.practice.app.expression.ExpressionValidator;
+import org.practice.app.parser.CharsParser;
 
 public class AdvancedCalculator {
 
     public CalculationResult evaluate(String expression) {
-        ExpressionInitializer initializer = new ExpressionInitializer(expression);
-        ExpressionValidator validator = initializer.initializeValidator();
+        expression = new ExpressionInitializer(expression).prepareExpression();
+        ExpressionValidator validator = new ExpressionValidator(expression);
 
         if (validator.hasUnsupportedSymbols()) {
             return generateUnsupportedSymbolsMessage(expression);
         } else if (validator.hasUnbalancedParentheses()) {
             return generateUnbalancedBracketsMessage(expression);
         } else {
-            return parseAndEvaluateExpression(initializer);
+            return parseAndEvaluateExpression(expression);
         }
     }
 
-    private CalculationResult parseAndEvaluateExpression(ExpressionInitializer initializer){
+    private CalculationResult parseAndEvaluateExpression(String expression){
         double result =
-                initializer.convertCharsToUndefinedOperations().
+                new CharsParser(expression).convertCharsToUndefinedOperations().
                         parseNegativeNumbers().parsePositiveNumbers().
                         getPriorityOperandsParser().parsePriorityOperands().
                         getParenthesisParser().parseParenthesis().

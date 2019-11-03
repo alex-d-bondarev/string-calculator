@@ -7,7 +7,6 @@ import static org.junit.Assert.assertEquals;
 
 public class TestAdvancedCalculator {
     private static final AdvancedCalculator calc = new AdvancedCalculator();
-    private static final double DELTA = 0d;
 
     @Test
     public void charsAreUnexpected() {
@@ -30,7 +29,7 @@ public class TestAdvancedCalculator {
     @Test
     public void unbalancedBracketsAreUnexpected() {
         String testExpression = "2 + 2)";
-        String expectedResult = "Given expression '2 + 2)' has unbalanced brackets.";
+        String expectedResult = "Given expression '2+2)' has unbalanced brackets.";
         CalculationResult result = calc.evaluate(testExpression);
 
         assertEquals(expectedResult, result.getResult());
