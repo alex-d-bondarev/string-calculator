@@ -12,7 +12,7 @@ This calculator parses given String expression and calculates its result. Input 
 - Difference **-**
 - Multiplication *
 - Division **/**
-- Opening and closing parenthesis **(** **)**  
+- Opening and closing brackets _(are processed as equal)_ **(** **)**, **{** **}** and **\[** **\]**  
 
 How it works
 ------------
