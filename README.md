@@ -5,9 +5,14 @@ Calculate expression of a given string.
 
 You can copy and reuse code [![MIT License](http://img.shields.io/badge/license-MIT-green.svg)](https://github.com/selenide/selenide/blob/master/LICENSE)
 
-This calculator parses given String expression and calculates its result.
-Positive and negative integers are supported.
-Only sum (+), difference (-), multiplication (*) and division (/) operands are supported. 
+This calculator parses given String expression and calculates its result. Input string may contain the following:
+- Positive integers
+- Negative integers
+- Sum **+**
+- Difference **-**
+- Multiplication *
+- Division **/**
+- Opening and closing parenthesis **(** **)**  
 
 How it works
 ------------
@@ -42,4 +47,3 @@ Second option is easier and avoids spaghetti code. The parsed expressions will l
 1. expression like "10 - 2 + 4 - 5 + 6 = 13" will be calculated as "((((10 - 2) + 4) - 5) + 6) = 13"
 1. expression like "10 - 2 - 4 + 5 - 6 = 3" will be calculated as "((((10 - 2) - 4) + 5) - 6) = 3"
 ```
-

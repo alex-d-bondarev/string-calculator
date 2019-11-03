@@ -1,7 +1,6 @@
 package org.practice.app;
 
 import org.junit.Test;
-import org.practice.app.parser.ProcessorException;
 
 import static org.junit.Assert.assertEquals;
 
@@ -65,7 +64,7 @@ public class TestAdvancedCalculator {
     }
 
     @Test
-    public void simpleDifference(){
+    public void simpleDifference() {
         String testExpression = "2 - 2";
         String expectedResult = "0.0";
         CalculationResult result = calc.evaluate(testExpression);
@@ -74,7 +73,7 @@ public class TestAdvancedCalculator {
     }
 
     @Test
-    public void simpleMultiplication() throws ProcessorException {
+    public void simpleMultiplication() {
         String expression = "2 * 2";
         String expectedResult = "4.0";
         CalculationResult result = calc.evaluate(expression);
@@ -83,7 +82,7 @@ public class TestAdvancedCalculator {
     }
 
     @Test
-    public void simpleDivision() throws ProcessorException {
+    public void simpleDivision() {
         String expression = "2 / 2";
         String expectedResult = "1.0";
         CalculationResult result = calc.evaluate(expression);
@@ -92,7 +91,7 @@ public class TestAdvancedCalculator {
     }
 
     @Test
-    public void combinationOfOperands() throws ProcessorException {
+    public void combinationOfOperands() {
         String expression = "1+2-3/4";
         String expectedResult = "2.25";
         CalculationResult result = calc.evaluate(expression);
@@ -101,7 +100,7 @@ public class TestAdvancedCalculator {
     }
 
     @Test
-    public void multiplicationHappensBeforeSum() throws ProcessorException {
+    public void multiplicationHappensBeforeSum() {
         String expression = "2 + 2 * 2";
         String expectedResult = "6.0";
         CalculationResult result = calc.evaluate(expression);
@@ -110,7 +109,7 @@ public class TestAdvancedCalculator {
     }
 
     @Test
-    public void divisionHappensBeforeDifference() throws ProcessorException {
+    public void divisionHappensBeforeDifference() {
         String expression = "2 - 2 / 2";
         String expectedResult = "1.0";
         CalculationResult result = calc.evaluate(expression);
@@ -119,7 +118,7 @@ public class TestAdvancedCalculator {
     }
 
     @Test
-    public void useAllSupportedSymbols() throws ProcessorException {
+    public void useAllSupportedSymbols() {
         String expression = "{3*4} - [2 + 3] + (9/3)";
         String expectedResult = "10.0";
         CalculationResult result = calc.evaluate(expression);
@@ -128,7 +127,7 @@ public class TestAdvancedCalculator {
     }
 
     @Test
-    public void ensureAllNumbersToTheRightInvert() throws ProcessorException {
+    public void ensureAllNumbersToTheRightInvert() {
         String expression = "10 - 2 + 4 - 5 + 6";
         String expectedResult = "13.0";
         CalculationResult result = calc.evaluate(expression);
@@ -137,7 +136,7 @@ public class TestAdvancedCalculator {
     }
 
     @Test
-    public void ensureAllButLastNumbersToTheRightInvert() throws ProcessorException {
+    public void ensureAllButLastNumbersToTheRightInvert() {
         String expression = "10 - 2 - 4 + 5 - 6";
         String expectedResult = "3.0";
         CalculationResult result = calc.evaluate(expression);

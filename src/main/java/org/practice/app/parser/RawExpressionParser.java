@@ -24,8 +24,4 @@ public class RawExpressionParser {
 
         return new NumberParser(undefinedOperationGroup);
     }
-
-    public UndefinedOperationGroup getUndefinedOperationGroup() {
-        return undefinedOperationGroup;
-    }
 }

@@ -15,7 +15,7 @@ public class ExpressionValidator {
     }
 
     public boolean hasUnbalancedParentheses() {
-        return !ParenthesisUtil.bracketsAreBalanced(
+        return !ParenthesisUtil.parenthesisAreBalanced(
                 expression.replaceAll("[^()]", ""));
     }
 }
