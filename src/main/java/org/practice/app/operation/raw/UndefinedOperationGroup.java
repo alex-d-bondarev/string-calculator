@@ -51,6 +51,10 @@ public class UndefinedOperationGroup implements UndefinedOperation {
         return operations.get(position - 1);
     }
 
+    public Operation getNext(){
+        return operations.get(position + 1);
+    }
+
     public Operation previous(){
         return operations.get(--position);
     }

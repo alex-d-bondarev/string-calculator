@@ -25,12 +25,14 @@ public class NumberParser {
         undefinedOperationGroup.toStart();
         UndefinedOperation currentUndefinedOperation;
         boolean previousIsDigit;
+        boolean nextIsDigit;
 
         while (undefinedOperationGroup.hasNext()) {
             currentUndefinedOperation = (UndefinedOperation) undefinedOperationGroup.next();
             previousIsDigit = isPreviousOperationADigit();
+            nextIsDigit = isNextOperationADigit();
 
-            if (currentUndefinedOperation.getValue() == MINUS_CHAR && !previousIsDigit) {
+            if (currentUndefinedOperation.getValue() == MINUS_CHAR && !previousIsDigit && nextIsDigit) {
                 replaceCurrentUndefinedOperationContainingNumbersWithNumberOperation(currentUndefinedOperation);
             }
         }
@@ -75,6 +77,14 @@ public class NumberParser {
             previousIsDigit = Character.isDigit(((UndefinedOperation) undefinedOperationGroup.getPrevious()).getValue());
         }
         return previousIsDigit;
+    }
+
+    private boolean isNextOperationADigit() {
+        boolean nextIsDigit = false;
+        if (undefinedOperationGroup.hasNext() && undefinedOperationGroup.getNext() instanceof UndefinedOperation) {
+            nextIsDigit = Character.isDigit(((UndefinedOperation) undefinedOperationGroup.getNext()).getValue());
+        }
+        return nextIsDigit;
     }
 
     private String extractNumberStartingWithGivenOperation(UndefinedOperation operation) {

@@ -11,7 +11,7 @@ public class TestAdvancedCalculator {
     private static final double DELTA = 0d;
 
     @Test
-    public void charsAreUnexpected(){
+    public void charsAreUnexpected() {
         String testExpression = "abc";
         String expectedResult = "Given expression 'abc' contains unexpected symbols.";
         CalculationResult result = calc.evaluate(testExpression);
@@ -20,7 +20,7 @@ public class TestAdvancedCalculator {
     }
 
     @Test
-    public void unsupportedOperandsAreUnexpected(){
+    public void unsupportedOperandsAreUnexpected() {
         String testExpression = "2^2";
         String expectedResult = "Given expression '2^2' contains unexpected symbols.";
         CalculationResult result = calc.evaluate(testExpression);
@@ -29,7 +29,7 @@ public class TestAdvancedCalculator {
     }
 
     @Test
-    public void unbalancedBracketsAreUnexpected(){
+    public void unbalancedBracketsAreUnexpected() {
         String testExpression = "2 + 2)";
         String expectedResult = "Given expression '2 + 2)' has unbalanced brackets.";
         CalculationResult result = calc.evaluate(testExpression);
@@ -37,118 +37,111 @@ public class TestAdvancedCalculator {
         assertEquals(expectedResult, result.getResult());
     }
 
-    // All tests below are planned for deprecation
-    @Test(expected = ProcessorException.class)
-    public void unbalancedParenthesisNotAllowed() throws ProcessorException {
-        String expression = "(10";
-        calc.calculate(expression);
-    }
+    @Test
+    public void simpleNumberIsAcceptable() {
+        String testExpression = "10";
+        String expectedResult = "10.0";
+        CalculationResult result = calc.evaluate(testExpression);
 
-    @Test(expected = ProcessorException.class)
-    public void nonSimpleCalculationSymbolsNotAllowed() throws ProcessorException {
-        String expression = "3^2";
-        calc.calculate(expression);
-    }
-
-    @Test(expected = StringIndexOutOfBoundsException.class)
-    public void negativeNumbersAreNotSupported() throws ProcessorException {
-        String expression = "1*-2";
-        calc.calculate(expression);
+        assertEquals(expectedResult, result.getResult());
     }
 
     @Test
-    public void simpleNumberIsAcceptable() throws ProcessorException {
-        String expression = "10";
-        double result = 10d;
+    public void simpleNumberWithBracketsIsAcceptable() {
+        String testExpression = "{10}";
+        String expectedResult = "10.0";
+        CalculationResult result = calc.evaluate(testExpression);
 
-        assertEquals(result, calc.calculate(expression), DELTA);
+        assertEquals(expectedResult, result.getResult());
     }
 
     @Test
-    public void simpleNumberWithBracketsIsAcceptable() throws ProcessorException {
-        String expression = "{10}";
-        double result = 10d;
+    public void simpleSum() {
+        String testExpression = "2 + 2";
+        String expectedResult = "4.0";
+        CalculationResult result = calc.evaluate(testExpression);
 
-        assertEquals(result, calc.calculate(expression), DELTA);
+        assertEquals(expectedResult, result.getResult());
     }
 
     @Test
-    public void simpleSum() throws ProcessorException {
-        String expression = "2 + 2";
-        double result = 4d;
+    public void simpleDifference(){
+        String testExpression = "2 - 2";
+        String expectedResult = "0.0";
+        CalculationResult result = calc.evaluate(testExpression);
 
-        assertEquals(result, calc.calculate(expression), DELTA);
-    }
-
-    @Test
-    public void simpleDifference() throws ProcessorException {
-        String expression = "2 - 2";
-        double result = 0;
-
-        assertEquals(result, calc.calculate(expression), DELTA);
+        assertEquals(expectedResult, result.getResult());
     }
 
     @Test
     public void simpleMultiplication() throws ProcessorException {
         String expression = "2 * 2";
-        double result = 4d;
+        String expectedResult = "4.0";
+        CalculationResult result = calc.evaluate(expression);
 
-        assertEquals(result, calc.calculate(expression), DELTA);
+        assertEquals(expectedResult, result.getResult());
     }
 
     @Test
     public void simpleDivision() throws ProcessorException {
         String expression = "2 / 2";
-        double result = 1d;
+        String expectedResult = "1.0";
+        CalculationResult result = calc.evaluate(expression);
 
-        assertEquals(result, calc.calculate(expression), DELTA);
+        assertEquals(expectedResult, result.getResult());
     }
 
     @Test
     public void combinationOfOperands() throws ProcessorException {
         String expression = "1+2-3/4";
-        double result = 2.25d;
+        String expectedResult = "2.25";
+        CalculationResult result = calc.evaluate(expression);
 
-        assertEquals(result, calc.calculate(expression), DELTA);
+        assertEquals(expectedResult, result.getResult());
     }
 
     @Test
     public void multiplicationHappensBeforeSum() throws ProcessorException {
         String expression = "2 + 2 * 2";
-        double result = 6d;
+        String expectedResult = "6.0";
+        CalculationResult result = calc.evaluate(expression);
 
-        assertEquals(result, calc.calculate(expression), DELTA);
+        assertEquals(expectedResult, result.getResult());
     }
 
     @Test
     public void divisionHappensBeforeDifference() throws ProcessorException {
         String expression = "2 - 2 / 2";
-        double result = 1d;
+        String expectedResult = "1.0";
+        CalculationResult result = calc.evaluate(expression);
 
-        assertEquals(result, calc.calculate(expression), DELTA);
+        assertEquals(expectedResult, result.getResult());
     }
 
     @Test
     public void useAllSupportedSymbols() throws ProcessorException {
         String expression = "{3*4} - [2 + 3] + (9/3)";
-        double result = 10d;
+        String expectedResult = "10.0";
+        CalculationResult result = calc.evaluate(expression);
 
-        assertEquals(result, calc.calculate(expression), DELTA);
+        assertEquals(expectedResult, result.getResult());
     }
 
     @Test
     public void ensureAllNumbersToTheRightInvert() throws ProcessorException {
         String expression = "10 - 2 + 4 - 5 + 6";
-        double result = 13d;
+        String expectedResult = "13.0";
+        CalculationResult result = calc.evaluate(expression);
 
-        assertEquals(result, calc.calculate(expression), DELTA);
+        assertEquals(expectedResult, result.getResult());
     }
 
     @Test
     public void ensureAllButLastNumbersToTheRightInvert() throws ProcessorException {
         String expression = "10 - 2 - 4 + 5 - 6";
-        double result = 3d;
+        String expectedResult = "3.0";
+        CalculationResult result = calc.evaluate(expression);
 
-        assertEquals(result, calc.calculate(expression), DELTA);
+        assertEquals(expectedResult, result.getResult());
     }
 }

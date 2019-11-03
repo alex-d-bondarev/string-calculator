@@ -50,7 +50,7 @@ public class AdvancedCalculator {
                             getParenthesisParser().parseParenthesis().
                             getDefinedOperationParser().parseToDefinedOperation();
             // This is a temporary stub
-            return null;
+            return new CalculationResult(Double.toString(definedOperation.evaluate()));
         }
     }
 
