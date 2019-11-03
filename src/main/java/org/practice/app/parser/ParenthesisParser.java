@@ -17,6 +17,10 @@ public class ParenthesisParser {
         this.undefinedOperationGroup = undefinedOperationGroup;
     }
 
+    public DefinedOperationParser getDefinedOperationParser() {
+        return new DefinedOperationParser(undefinedOperationGroup);
+    }
+
     public ParenthesisParser parseParenthesis() {
         undefinedOperationGroup.toStart();
         UndefinedOperation currentUndefinedOperation;

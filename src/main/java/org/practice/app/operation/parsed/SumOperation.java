@@ -10,4 +10,9 @@ public class SumOperation extends OperandOperation {
     public double evaluate() {
         return left.evaluate() + right.evaluate();
     }
+
+    @Override
+    public String toString() {
+        return left + "+" + right;
+    }
 }

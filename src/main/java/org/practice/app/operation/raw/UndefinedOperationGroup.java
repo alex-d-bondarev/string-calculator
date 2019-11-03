@@ -2,6 +2,7 @@ package org.practice.app.operation.raw;
 
 import org.practice.app.operation.Operation;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UndefinedOperationGroup implements UndefinedOperation {
@@ -24,6 +25,14 @@ public class UndefinedOperationGroup implements UndefinedOperation {
 
     public void toStart(){
         position = START_POSITION;
+    }
+
+    public void toEnd(){
+        position = operations.size();
+    }
+
+    public int getSize(){
+        return operations.size();
     }
 
     public boolean hasNext(){
@@ -84,5 +93,13 @@ public class UndefinedOperationGroup implements UndefinedOperation {
     @Override
     public String toString() {
         return operations.toString();
+    }
+
+    public UndefinedOperationGroup getLeftSubGroup() {
+        return new UndefinedOperationGroup(new ArrayList<>(operations.subList(0, position)));
+    }
+
+    public UndefinedOperationGroup getRightSubGroup() {
+        return new UndefinedOperationGroup(new ArrayList<>(operations.subList(position+1, operations.size())));
     }
 }
