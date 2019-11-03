@@ -17,20 +17,20 @@ This calculator parses given String expression and calculates its result. Input 
 How it works
 ------------
 
-1. [x] Prepare expression for being parsed
-    1. [x] Remove all spaces
-    1. [x] Replace all different kinds of brackets with parenthesis
-1. [x] Verify given expression is valid
-    1. [x] Ensure no extra symbols were provided
-    1. [x] Ensure parenthesis are balanced
-1. [x] Parse expression into more specific operations:
-    1. [x] Convert each symbol into a List of undefined operations
-    1. [x] Parse all negative numbers into `NumberOperation`-s
-    1. [x] Parse all positive numbers into `NumberOperation`
-    1. [x] Add parenthesis for multiplication and division operands as priority operands
-    1. [x] Parse all expressions within any parenthesis into a new undefined operation groups
-    1. [x] Parse the rest of expression from right to left\* into corresponding operations
-1. [x] Evaluate received operations tree into expression result
+1. Prepare expression for being parsed
+    1. Remove all spaces
+    1. Replace all different kinds of brackets with parenthesis
+1. Verify given expression is valid
+    1. Ensure no extra symbols were provided
+    1. Ensure parenthesis are balanced
+1.  Parse expression into more specific operations:
+    1.  Convert each symbol into a List of undefined operations
+    1.  Parse all negative numbers into `NumberOperation`-s
+    1.  Parse all positive numbers into `NumberOperation`
+    1.  Add parenthesis for multiplication and division operands as priority operands
+    1.  Parse all expressions within any parenthesis into a new undefined operation groups
+    1.  Parse the rest of expression from right to left\* into corresponding operations
+1.  Evaluate received operations tree into expression result
 
 \* Note:
 
