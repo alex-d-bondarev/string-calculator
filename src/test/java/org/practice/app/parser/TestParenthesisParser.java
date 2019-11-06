@@ -103,7 +103,7 @@ public class TestParenthesisParser {
 
     private ParenthesisParser generateParenthesisParserFromExpression(String expression){
         UndefinedOperationGroup operationsGroup =
-                new CharsParser(expression).convertCharsToUndefinedOperations().getUndefinedOperationGroup();
+                new ExpressionParser(expression).toUndefinedOperationsGroup().getUndefinedOperationGroup();
 
         return new ParenthesisParser(operationsGroup);
     }

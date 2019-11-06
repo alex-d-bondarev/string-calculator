@@ -6,14 +6,14 @@ import org.practice.app.operation.raw.UndefinedOperationGroup;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-public class CharsParser {
+public class ExpressionParser {
     private final String expression;
 
-    public CharsParser(String expression) {
+    public ExpressionParser(String expression) {
         this.expression = expression;
     }
 
-    public NumberParser convertCharsToUndefinedOperations() {
+    public NumberParser toUndefinedOperationsGroup() {
         UndefinedOperationGroup undefinedOperationGroup =
                 new UndefinedOperationGroup(
                         expression.

@@ -12,49 +12,39 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
 
-public class CharsParserTest {
+public class ExpressionParserTest {
 
     @Test
     public void testNumberToListOf1UndefinedOperation() {
-        String testExpression = "2";
+        String expression = "2";
         int expectedOperationsSize = 1;
+        UndefinedOperationGroup actualGroup = getUndefinedOperationGroupFromExpression(expression);
+        int actualOperationsSize = actualGroup.getOperations().size();
 
-        UndefinedOperationGroup actualGroup =
-                new CharsParser(testExpression).
-                        convertCharsToUndefinedOperations().
-                        getUndefinedOperationGroup();
-
-        assertThat(
-                actualGroup.getOperations().size(),
-                is(expectedOperationsSize));
+        assertThat(actualOperationsSize, is(expectedOperationsSize));
     }
 
     @Test
     public void testNumberToListOf3UndefinedOperations() {
-        String testExpression = "2+2";
+        String expression = "2+2";
         int expectedOperationsSize = 3;
+        UndefinedOperationGroup actualGroup = getUndefinedOperationGroupFromExpression(expression);
+        int actualOperationsSize = actualGroup.getOperations().size();
 
-        UndefinedOperationGroup actualGroup =
-                new  CharsParser(testExpression).
-                        convertCharsToUndefinedOperations().
-                        getUndefinedOperationGroup();
-
-        assertThat(
-                actualGroup.getOperations().size(),
-                is(expectedOperationsSize));
+        assertThat(actualOperationsSize, is(expectedOperationsSize));
     }
 
     @Test
     public void testUndefinedOperationsOrderIsKept() {
         String testExpression = "1+2*3";
         UndefinedOperationGroup expectedGroup = getTestUndefinedOperationGroup();
-
-        UndefinedOperationGroup actualGroup =
-                new  CharsParser(testExpression).
-                        convertCharsToUndefinedOperations().
-                        getUndefinedOperationGroup();
+        UndefinedOperationGroup actualGroup = getUndefinedOperationGroupFromExpression(testExpression);
 
         assertEquals(expectedGroup, actualGroup);
+    }
+
+    private UndefinedOperationGroup getUndefinedOperationGroupFromExpression(String expression){
+        return new ExpressionParser(expression).toUndefinedOperationsGroup().getUndefinedOperationGroup();
     }
 
     private UndefinedOperationGroup getTestUndefinedOperationGroup() {
