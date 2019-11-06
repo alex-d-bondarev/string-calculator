@@ -5,7 +5,7 @@ import org.practice.app.operation.parsed.*;
 
 import static org.junit.Assert.assertEquals;
 
-public class TestDefinedOperation {
+public class DefinedOperationTest {
 
     private static final double DELTA = 0;
     private static final double ONE = 1d;

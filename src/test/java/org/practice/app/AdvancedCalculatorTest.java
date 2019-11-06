@@ -5,7 +5,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 
-public class TestAdvancedCalculator {
+public class AdvancedCalculatorTest {
     private static final AdvancedCalculator calc = new AdvancedCalculator();
 
     @Test
