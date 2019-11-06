@@ -1,5 +1,6 @@
 package org.practice.app.parser;
 
+import org.practice.app.data_structure.SubListIndex;
 import org.practice.app.operation.Operation;
 import org.practice.app.operation.raw.UndefinedOperation;
 import org.practice.app.operation.raw.UndefinedOperationGroup;
@@ -40,9 +41,11 @@ public class ParenthesisParser {
                     parenthesisEnd = undefinedOperationGroup.getPosition();
                 }
 
+                SubListIndex index = new SubListIndex(parenthesisStart, parenthesisEnd + 1);
+
                 if(parenthesisEnd - parenthesisStart == 2){
                     undefinedOperationGroup = undefinedOperationGroup.replaceBetween(
-                            undefinedOperationGroup.getPrevious(), parenthesisStart, ++parenthesisEnd);
+                            undefinedOperationGroup.getPrevious(), index);
                     undefinedOperationGroup.toStart();
                     parenthesisStart = 0;
                     parenthesisEnd = 0;
@@ -53,7 +56,7 @@ public class ParenthesisParser {
                     UndefinedOperationGroup newSubGroup = new UndefinedOperationGroup(subOperations);
 
                     undefinedOperationGroup = undefinedOperationGroup.replaceBetween(
-                            newSubGroup, parenthesisStart, ++parenthesisEnd);
+                            newSubGroup, index);
                     undefinedOperationGroup.toStart();
                     parenthesisStart = 0;
                     parenthesisEnd = 0;
