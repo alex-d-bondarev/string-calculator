@@ -18,68 +18,71 @@ public class NumberParserTest {
     @Test
     public void operationParserParsesNegativeNumbersOnly() {
         NumberParser parser = getParserWithParsedNegativeNumbersFromChars('1');
-
         Operation result = getFirstOperationFromParser(parser);
+
         assertTrue("Positive numbers should be ignored at this step", result instanceof UndefinedOperation);
     }
 
     @Test
     public void operationParserParsesNegativeNumbersSuccessfully() {
         NumberParser parser = getParserWithParsedNegativeNumbersFromChars('-', '1');
-
         Operation result = getFirstOperationFromParser(parser);
+
         assertTrue(result instanceof NumberOperation);
     }
 
     @Test
     public void differenceOperationIsNotNegativeNumber() {
-        NumberParser parser = getParserWithParsedNegativeNumbersFromChars('2', '-', '1');
         int expectedSizeAfterParsing = 3;
 
-        int actualSizeAfterParsing = getOperationGroupSizeFromParser(parser);
+        NumberParser parser = getParserWithParsedNegativeNumbersFromChars('2', '-', '1');
+        int actualSizeAfterParsing = getAmountOfOperationsFrom(parser);
+
         assertEquals(expectedSizeAfterParsing, actualSizeAfterParsing);
     }
 
     @Test
     public void negativeNumberInTheMiddleOfExpressionIsParsed() {
-        NumberParser parser = getParserWithParsedNegativeNumbersFromChars('3', '*', '-', '1', '*', '2');
         int expectedSizeAfterParsing = 5;
+        NumberParser parser = getParserWithParsedNegativeNumbersFromChars('3', '*', '-', '1', '*', '2');
+        int actualSizeAfterParsing = getAmountOfOperationsFrom(parser);
 
-        int actualSizeAfterParsing = getOperationGroupSizeFromParser(parser);
         assertEquals(expectedSizeAfterParsing, actualSizeAfterParsing);
     }
 
     @Test
     public void longNegativeNumberInTheMiddleOfExpressionIsParsed() {
-        NumberParser parser = getParserWithParsedNegativeNumbersFromChars('3', '*', '-', '9', '8', '7', '*', '2');
         int expectedSizeAfterParsing = 5;
 
-        int actualSizeAfterParsing = getOperationGroupSizeFromParser(parser);
+        NumberParser parser = getParserWithParsedNegativeNumbersFromChars('3', '*', '-', '9', '8', '7', '*', '2');
+        int actualSizeAfterParsing = getAmountOfOperationsFrom(parser);
+
         assertEquals(expectedSizeAfterParsing, actualSizeAfterParsing);
     }
 
     @Test
     public void negativeNumberInTheEndOfExpressionIsParsed() {
-        NumberParser parser = getParserWithParsedNegativeNumbersFromChars('3', '*', '2', '*', '-', '1');
         int expectedSizeAfterParsing = 5;
 
-        int actualSizeAfterParsing = getOperationGroupSizeFromParser(parser);
+        NumberParser parser = getParserWithParsedNegativeNumbersFromChars('3', '*', '2', '*', '-', '1');
+        int actualSizeAfterParsing = getAmountOfOperationsFrom(parser);
+
         assertEquals(expectedSizeAfterParsing, actualSizeAfterParsing);
     }
 
     @Test
     public void parenthesisAllowParsingNegativeNumbers() {
-        NumberParser parser = getParserWithParsedNegativeNumbersFromChars('2', '+', '(', '-', '1', ')');
         int expectedSizeAfterParsing = 5;
 
-        int actualSizeAfterParsing = getOperationGroupSizeFromParser(parser);
+        NumberParser parser = getParserWithParsedNegativeNumbersFromChars('2', '+', '(', '-', '1', ')');
+        int actualSizeAfterParsing = getAmountOfOperationsFrom(parser);
+
         assertEquals(expectedSizeAfterParsing, actualSizeAfterParsing);
     }
 
     @Test
     public void positiveNumberIsConvertedToNumberOperation() {
         NumberParser parser = getParserWithParsedPositiveNumbersFromChars('1');
-
         Operation result = getFirstOperationFromParser(parser);
         assertTrue("Positive numbers should be parsed at this step", result instanceof NumberOperation);
     }
@@ -95,31 +98,33 @@ public class NumberParserTest {
 
     @Test
     public void longPositiveNumberInTheMiddleOfExpressionIsParsed() {
-        NumberParser parser = getParserWithParsedPositiveNumbersFromChars('3', '*', '9', '8', '7', '6', '*', '2');
         int expectedSizeAfterParsing = 5;
 
-        int actualSizeAfterParsing = getOperationGroupSizeFromParser(parser);
+        NumberParser parser = getParserWithParsedPositiveNumbersFromChars('3', '*', '9', '8', '7', '6', '*', '2');
+        int actualSizeAfterParsing = getAmountOfOperationsFrom(parser);
+
         assertEquals(expectedSizeAfterParsing, actualSizeAfterParsing);
     }
 
     @Test
     public void positiveNumberCanBeParsedAfterNegativeWasParsed() {
+        int expectedSizeAfterParsing = 5;
+
         NumberParser parser =
                 getParserWithParsedNegativeNumbersFromChars('3', '*', '-', '9', '8', '7', '*', '2').
                         parsePositiveNumbers();
+        int actualSizeAfterParsing = getAmountOfOperationsFrom(parser);
 
-        int expectedSizeAfterParsing = 5;
-
-        int actualSizeAfterParsing = getOperationGroupSizeFromParser(parser);
         assertEquals(expectedSizeAfterParsing, actualSizeAfterParsing);
     }
 
     @Test
     public void parenthesisAllowParsingPositiveNumbers() {
-        NumberParser parser = getParserWithParsedPositiveNumbersFromChars('2', '+', '(', '2', '-', '1', ')');
         int expectedSizeAfterParsing = 7;
 
-        int actualSizeAfterParsing = getOperationGroupSizeFromParser(parser);
+        NumberParser parser = getParserWithParsedPositiveNumbersFromChars('2', '+', '(', '2', '-', '1', ')');
+        int actualSizeAfterParsing = getAmountOfOperationsFrom(parser);
+
         assertEquals(expectedSizeAfterParsing, actualSizeAfterParsing);
     }
 
@@ -150,7 +155,7 @@ public class NumberParserTest {
         return parser.getUndefinedOperationGroup().getOperations().get(i);
     }
 
-    private int getOperationGroupSizeFromParser(NumberParser parser) {
+    private int getAmountOfOperationsFrom(NumberParser parser) {
         return parser.getUndefinedOperationGroup().getOperations().size();
     }
 }

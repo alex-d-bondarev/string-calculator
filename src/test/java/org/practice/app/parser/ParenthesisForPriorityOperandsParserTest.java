@@ -1,5 +1,6 @@
 package org.practice.app.parser;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.practice.app.operation.Operation;
 import org.practice.app.operation.parsed.NumberOperation;
@@ -10,148 +11,117 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 public class ParenthesisForPriorityOperandsParserTest {
+    private List<Operation> operations;
 
-    @Test
-    public void priorityOperandsParserCanBeCreated(){
-        List<Operation> operations = new ArrayList<>();
-        operations.add(new NumberOperation(1d));
-
-        UndefinedOperationGroup operationsGroup = new UndefinedOperationGroup(operations);
-        ParenthesisForPriorityOperandsParser parser = new ParenthesisForPriorityOperandsParser(operationsGroup);
+    @Before
+    public void setup() {
+        operations = new ArrayList<>();
     }
 
     @Test
-    public void priorityOperandsParserDoesNotSurroundSimpleNumber(){
-        int expectedOperationsAmount = 1, actualOperationsAmount;
-        List<Operation> operations = new ArrayList<>();
+    public void priorityOperandsParserDoesNotSurroundSimpleNumber() {
+        int expectedOperationsAmount = 1;
+        addNumberOperation(1d);
 
-        operations.add(new NumberOperation(1d));
-        UndefinedOperationGroup operationsGroup = new UndefinedOperationGroup(operations);
-        ParenthesisForPriorityOperandsParser parser = new ParenthesisForPriorityOperandsParser(operationsGroup);
+        ParenthesisForPriorityOperandsParser parser = parseOperations();
 
-        parser = parser.parsePriorityOperands();
-        actualOperationsAmount = parser.getUndefinedOperationGroup().getOperations().size();
+        assertOperationsAmount(expectedOperationsAmount, parser);
+    }
 
+    @Test
+    public void priorityOperandsParserDoesNotSurroundSum() {
+        int expectedOperationsAmount = 3;
+        addNumberOperation(1d);
+        addUndefinedOperation('+');
+        addNumberOperation(1d);
+
+        ParenthesisForPriorityOperandsParser parser = parseOperations();
+
+        assertOperationsAmount(expectedOperationsAmount, parser);
+    }
+
+    @Test
+    public void priorityOperandsParserDoesNotSurroundDifference() {
+        int expectedOperationsAmount = 3;
+        addNumberOperation(1d);
+        addUndefinedOperation('-');
+        addNumberOperation(1d);
+
+        ParenthesisForPriorityOperandsParser parser = parseOperations();
+
+        assertOperationsAmount(expectedOperationsAmount, parser);
+    }
+
+    @Test
+    public void priorityOperandsParserAddsOperationsToMultiplication() {
+        int expectedOperationsAmount = 5;
+        String expectedParsingResult = "[(, 1.0, *, 1.0, )]";
+        addNumberOperation(1d);
+        addUndefinedOperation('*');
+        addNumberOperation(1d);
+
+        ParenthesisForPriorityOperandsParser parser = parseOperations();
+
+        assertOperationsAmount(expectedOperationsAmount, parser);
+        assertOperationValues(expectedParsingResult, parser);
+    }
+
+    @Test
+    public void priorityOperandsParserAddsOperationsToDivision() {
+        int expectedOperationsAmount = 5;
+        addNumberOperation(1d);
+        addUndefinedOperation('/');
+        addNumberOperation(1d);
+
+        ParenthesisForPriorityOperandsParser parser = parseOperations();
+
+        assertOperationsAmount(expectedOperationsAmount, parser);
+    }
+
+    @Test
+    public void priorityOperandsGetAddedToComplexExpression() {
+        int expectedOperationsAmount = 15;
+        String expectedParsingResult = "[1.0, +, (, 2.0, *, (, 3.0, +, (, 4.0, /, 5.0, ), ), )]";
+        addNumberOperation(1d);
+        addUndefinedOperation('+');
+        addNumberOperation(2d);
+        addUndefinedOperation('*');
+        addUndefinedOperation('(');
+        addNumberOperation(3d);
+        addUndefinedOperation('+');
+        addNumberOperation(4d);
+        addUndefinedOperation('/');
+        addNumberOperation(5d);
+        addUndefinedOperation(')');
+
+        ParenthesisForPriorityOperandsParser parser = parseOperations();
+
+        assertOperationsAmount(expectedOperationsAmount, parser);
+        assertOperationValues(expectedParsingResult, parser);
+    }
+
+    private void addNumberOperation(double number) {
+        operations.add(new NumberOperation(number));
+    }
+
+    private void addUndefinedOperation(char c) {
+        operations.add(new SingleUndefinedOperation(c));
+    }
+
+    private void assertOperationsAmount(int expectedOperationsAmount, ParenthesisForPriorityOperandsParser parser) {
+        int actualOperationsAmount = parser.getUndefinedOperationGroup().getOperations().size();
         assertEquals(expectedOperationsAmount, actualOperationsAmount);
     }
 
-    @Test
-    public void priorityOperandsParserDoesNotSurroundSum(){
-        int expectedOperationsAmount = 3, actualOperationsAmount;
-        List<Operation> operations = new ArrayList<>();
-
-        operations.add(new NumberOperation(1d));
-        operations.add(new SingleUndefinedOperation('+'));
-        operations.add(new NumberOperation(1d));
-        UndefinedOperationGroup operationsGroup = new UndefinedOperationGroup(operations);
-        ParenthesisForPriorityOperandsParser parser = new ParenthesisForPriorityOperandsParser(operationsGroup);
-
-        parser = parser.parsePriorityOperands();
-        actualOperationsAmount = parser.getUndefinedOperationGroup().getOperations().size();
-
-        assertEquals(expectedOperationsAmount, actualOperationsAmount);
+    private void assertOperationValues(String expectedParsingResult, ParenthesisForPriorityOperandsParser parser) {
+        String actualParsingResult = parser.getUndefinedOperationGroup().toString();
+        assertEquals(expectedParsingResult, actualParsingResult);
     }
 
-    @Test
-    public void priorityOperandsParserDoesNotSurroundDifference(){
-        int expectedOperationsAmount = 3, actualOperationsAmount;
-        List<Operation> operations = new ArrayList<>();
-
-        operations.add(new NumberOperation(1d));
-        operations.add(new SingleUndefinedOperation('-'));
-        operations.add(new NumberOperation(1d));
+    private ParenthesisForPriorityOperandsParser parseOperations() {
         UndefinedOperationGroup operationsGroup = new UndefinedOperationGroup(operations);
-        ParenthesisForPriorityOperandsParser parser = new ParenthesisForPriorityOperandsParser(operationsGroup);
-
-        parser = parser.parsePriorityOperands();
-        actualOperationsAmount = parser.getUndefinedOperationGroup().getOperations().size();
-
-        assertEquals(expectedOperationsAmount, actualOperationsAmount);
-    }
-
-    @Test
-    public void priorityOperandsParserAddsOperationsToMultiplication(){
-        int expectedOperationsAmount = 5, actualOperationsAmount;
-        List<Operation> operations = new ArrayList<>();
-
-        operations.add(new NumberOperation(1d));
-        operations.add(new SingleUndefinedOperation('*'));
-        operations.add(new NumberOperation(1d));
-        UndefinedOperationGroup operationsGroup = new UndefinedOperationGroup(operations);
-        ParenthesisForPriorityOperandsParser parser = new ParenthesisForPriorityOperandsParser(operationsGroup);
-
-        parser = parser.parsePriorityOperands();
-        actualOperationsAmount = parser.getUndefinedOperationGroup().getOperations().size();
-
-        assertEquals(expectedOperationsAmount, actualOperationsAmount);
-
-        Operation firstOperation = getOperationFromParserByIndex(parser, 0);
-        Operation lastOperation = getOperationFromParserByIndex(parser, 4);
-
-        assertTrue(firstOperation instanceof SingleUndefinedOperation);
-        assertTrue(lastOperation instanceof SingleUndefinedOperation);
-
-        assertEquals(((SingleUndefinedOperation) firstOperation).getValue(), '(');
-        assertEquals(((SingleUndefinedOperation) lastOperation).getValue(), ')');
-    }
-
-    @Test
-    public void priorityOperandsParserAddsOperationsToDivision(){
-        int expectedOperationsAmount = 5, actualOperationsAmount;
-        List<Operation> operations = new ArrayList<>();
-
-        operations.add(new NumberOperation(1d));
-        operations.add(new SingleUndefinedOperation('/'));
-        operations.add(new NumberOperation(1d));
-        UndefinedOperationGroup operationsGroup = new UndefinedOperationGroup(operations);
-        ParenthesisForPriorityOperandsParser parser = new ParenthesisForPriorityOperandsParser(operationsGroup);
-
-        parser = parser.parsePriorityOperands();
-        actualOperationsAmount = parser.getUndefinedOperationGroup().getOperations().size();
-
-        assertEquals(expectedOperationsAmount, actualOperationsAmount);
-    }
-
-    @Test
-    public void priorityOperandsGetAddedToComplexExpression(){
-        int expectedOperationsAmount = 15, actualOperationsAmount;
-        List<Operation> operations = new ArrayList<>();
-
-        operations.add(new NumberOperation(1d));
-        operations.add(new SingleUndefinedOperation('+'));
-        operations.add(new NumberOperation(2d));
-        operations.add(new SingleUndefinedOperation('*'));
-        operations.add(new SingleUndefinedOperation('('));
-        operations.add(new NumberOperation(3d));
-        operations.add(new SingleUndefinedOperation('+'));
-        operations.add(new NumberOperation(4d));
-        operations.add(new SingleUndefinedOperation('/'));
-        operations.add(new NumberOperation(5d));
-        operations.add(new SingleUndefinedOperation(')'));
-
-
-        UndefinedOperationGroup operationsGroup = new UndefinedOperationGroup(operations);
-        ParenthesisForPriorityOperandsParser parser = new ParenthesisForPriorityOperandsParser(operationsGroup);
-
-        parser = parser.parsePriorityOperands();
-        actualOperationsAmount = parser.getUndefinedOperationGroup().getOperations().size();
-
-        assertEquals(expectedOperationsAmount, actualOperationsAmount);
-
-        Operation firstOpeningParen = getOperationFromParserByIndex(parser, 2);
-        Operation nextAddedOpeningParen = getOperationFromParserByIndex(parser, 8);
-
-        assertTrue(firstOpeningParen instanceof SingleUndefinedOperation);
-        assertTrue(nextAddedOpeningParen instanceof SingleUndefinedOperation);
-
-        assertEquals(((SingleUndefinedOperation) firstOpeningParen).getValue(), '(');
-        assertEquals(((SingleUndefinedOperation) nextAddedOpeningParen).getValue(), '(');
-    }
-
-    private Operation getOperationFromParserByIndex(ParenthesisForPriorityOperandsParser parser, int i) {
-        return parser.getUndefinedOperationGroup().getOperations().get(i);
+        return new ParenthesisForPriorityOperandsParser(operationsGroup).parsePriorityOperands();
     }
 }

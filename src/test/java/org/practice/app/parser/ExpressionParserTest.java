@@ -18,32 +18,33 @@ public class ExpressionParserTest {
     public void testNumberToListOf1UndefinedOperation() {
         String expression = "2";
         int expectedOperationsSize = 1;
-        UndefinedOperationGroup actualGroup = getUndefinedOperationGroupFromExpression(expression);
-        int actualOperationsSize = actualGroup.getOperations().size();
 
-        assertThat(actualOperationsSize, is(expectedOperationsSize));
+        UndefinedOperationGroup actualGroup = getUndefinedOperationGroupFromExpression(expression);
+
+        assertThat(actualGroup.getOperations().size(), is(expectedOperationsSize));
     }
 
     @Test
     public void testNumberToListOf3UndefinedOperations() {
         String expression = "2+2";
         int expectedOperationsSize = 3;
-        UndefinedOperationGroup actualGroup = getUndefinedOperationGroupFromExpression(expression);
-        int actualOperationsSize = actualGroup.getOperations().size();
 
-        assertThat(actualOperationsSize, is(expectedOperationsSize));
+        UndefinedOperationGroup actualGroup = getUndefinedOperationGroupFromExpression(expression);
+
+        assertThat(actualGroup.getOperations().size(), is(expectedOperationsSize));
     }
 
     @Test
     public void testUndefinedOperationsOrderIsKept() {
         String testExpression = "1+2*3";
+
         UndefinedOperationGroup expectedGroup = getTestUndefinedOperationGroup();
         UndefinedOperationGroup actualGroup = getUndefinedOperationGroupFromExpression(testExpression);
 
         assertEquals(expectedGroup, actualGroup);
     }
 
-    private UndefinedOperationGroup getUndefinedOperationGroupFromExpression(String expression){
+    private UndefinedOperationGroup getUndefinedOperationGroupFromExpression(String expression) {
         return new ExpressionParser(expression).toUndefinedOperationsGroup().getUndefinedOperationGroup();
     }
 

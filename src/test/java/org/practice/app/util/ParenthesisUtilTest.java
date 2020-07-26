@@ -8,61 +8,61 @@ import static org.junit.Assert.assertTrue;
 public class ParenthesisUtilTest {
 
     @Test
-    public void shouldReceiveBracketsOnly(){
+    public void shouldReceiveBracketsOnly() {
         String testExpression = "2+2+2";
         assertFalse(ParenthesisUtil.parenthesisAreBalanced(testExpression));
     }
 
     @Test
-    public void onlyOpeningBracketsIsUnBalanced(){
+    public void onlyOpeningBracketsIsUnBalanced() {
         String testExpression = "(";
         assertFalse(ParenthesisUtil.parenthesisAreBalanced(testExpression));
     }
 
     @Test
-    public void onlyClosingBracketsIsUnBalanced(){
+    public void onlyClosingBracketsIsUnBalanced() {
         String testExpression = ")";
         assertFalse(ParenthesisUtil.parenthesisAreBalanced(testExpression));
     }
 
     @Test
-    public void noSymbolsMeansBalanced(){
+    public void noSymbolsMeansBalanced() {
         String testExpression = "";
         assertTrue(ParenthesisUtil.parenthesisAreBalanced(testExpression));
     }
 
     @Test
-    public void balancedBracketsIdentifiedCorrectly(){
+    public void balancedBracketsIdentifiedCorrectly() {
         String testExpression = "()";
         assertTrue(ParenthesisUtil.parenthesisAreBalanced(testExpression));
     }
 
     @Test
-    public void multipleLevelsOfBalancedBracketsIdentifiedCorrectly(){
+    public void multipleLevelsOfBalancedBracketsIdentifiedCorrectly() {
         String testExpression = "((((()))))";
         assertTrue(ParenthesisUtil.parenthesisAreBalanced(testExpression));
     }
 
     @Test
-    public void combinationOfBalancedBracketsIdentifiedCorrectly(){
+    public void combinationOfBalancedBracketsIdentifiedCorrectly() {
         String testExpression = "(()()(()))";
         assertTrue(ParenthesisUtil.parenthesisAreBalanced(testExpression));
     }
 
     @Test
-    public void lessOpeningBracketsThanClosedIsUnBalanced(){
+    public void lessOpeningBracketsThanClosedIsUnBalanced() {
         String testExpression = "(((()))))";
         assertFalse(ParenthesisUtil.parenthesisAreBalanced(testExpression));
     }
 
     @Test
-    public void lessClosingBracketsThanOpeningIsUnBalanced(){
+    public void lessClosingBracketsThanOpeningIsUnBalanced() {
         String testExpression = "((((())))";
         assertFalse(ParenthesisUtil.parenthesisAreBalanced(testExpression));
     }
 
     @Test
-    public void differentParenthesisOrderIsUnbalanced(){
+    public void differentParenthesisOrderIsUnbalanced() {
         String testExpression = ")(";
         assertFalse(ParenthesisUtil.parenthesisAreBalanced(testExpression));
     }

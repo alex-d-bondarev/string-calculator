@@ -13,14 +13,14 @@ public class DefinedOperationTest {
     private static final double TWENTY = 20d;
 
     @Test
-    public void testNumber(){
+    public void testNumber() {
         DefinedOperation testNumber = new NumberOperation(TEN);
         assertEquals(TEN, testNumber.evaluate(), DELTA);
     }
 
     @Test
-    public void testSimpleSum(){
-        double expectedResult    = 11d;
+    public void testSimpleSum() {
+        double expectedResult = 11d;
         DefinedOperation firstNumber = new NumberOperation(TEN);
         DefinedOperation secondNumber = new NumberOperation(ONE);
         DefinedOperation sum = new SumOperation(firstNumber, secondNumber);
@@ -29,7 +29,7 @@ public class DefinedOperationTest {
     }
 
     @Test
-    public void testSimpleDifference(){
+    public void testSimpleDifference() {
         double expectedResult = 9d;
         DefinedOperation firstNumber = new NumberOperation(TEN);
         DefinedOperation secondNumber = new NumberOperation(ONE);
@@ -39,7 +39,7 @@ public class DefinedOperationTest {
     }
 
     @Test
-    public void testSimpleMultiplication(){
+    public void testSimpleMultiplication() {
         double expectedResult = 200d;
         DefinedOperation firstNumber = new NumberOperation(TWENTY);
         DefinedOperation secondNumber = new NumberOperation(TEN);
@@ -49,7 +49,7 @@ public class DefinedOperationTest {
     }
 
     @Test
-    public void testSimpleDivision(){
+    public void testSimpleDivision() {
         double expectedResult = 2d;
         DefinedOperation firstNumber = new NumberOperation(TWENTY);
         DefinedOperation secondNumber = new NumberOperation(TEN);
@@ -59,7 +59,7 @@ public class DefinedOperationTest {
     }
 
     @Test
-    public void testComplexExpression(){
+    public void testComplexExpression() {
         // "(20 * ((10 + 1) - 1))/20 = 10"
         DefinedOperation firstNumber = new NumberOperation(TWENTY);
         DefinedOperation secondNumber = new NumberOperation(TEN);

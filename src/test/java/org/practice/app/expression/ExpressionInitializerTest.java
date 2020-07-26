@@ -7,7 +7,7 @@ import static org.junit.Assert.assertEquals;
 public class ExpressionInitializerTest {
 
     @Test
-    public void allExtraSpacesAreRemoved(){
+    public void allExtraSpacesAreRemoved() {
         String testExpression = "2 + 2";
         String expectedExpression = "2+2";
         ExpressionInitializer initializer = new ExpressionInitializer(testExpression);
@@ -16,7 +16,7 @@ public class ExpressionInitializerTest {
     }
 
     @Test
-    public void allExtraBracketsAreReplaced(){
+    public void allExtraBracketsAreReplaced() {
         String testExpression = "{2 + 2}";
         String expectedExpression = "(2+2)";
         ExpressionInitializer initializer = new ExpressionInitializer(testExpression);
