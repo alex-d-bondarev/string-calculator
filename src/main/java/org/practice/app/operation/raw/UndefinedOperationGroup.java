@@ -44,6 +44,10 @@ public class UndefinedOperationGroup implements UndefinedOperation {
         return position > 0;
     }
 
+    public Operation getCurrent(){
+        return operations.get(position);
+    }
+
     public Operation next(){
         return operations.get(++position);
     }
@@ -75,9 +79,8 @@ public class UndefinedOperationGroup implements UndefinedOperation {
         return this;
     }
 
-    public UndefinedOperationGroup addOperationTo(Operation newOperation, int index){
+    public void addOperationTo(Operation newOperation, int index){
         operations.add(index, newOperation);
-        return this;
     }
 
     @Override

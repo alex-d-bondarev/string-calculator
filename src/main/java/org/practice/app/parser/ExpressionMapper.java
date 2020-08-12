@@ -6,14 +6,14 @@ import org.practice.app.operation.raw.UndefinedOperationGroup;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-public class ExpressionParser {
+public class ExpressionMapper {
     private final String expression;
 
-    public ExpressionParser(String expression) {
+    public ExpressionMapper(String expression) {
         this.expression = expression;
     }
 
-    public NumberParser toUndefinedOperationsGroup() {
+    public NegativeNumberParser mapToUndefinedOperations() {
         UndefinedOperationGroup undefinedOperationGroup =
                 new UndefinedOperationGroup(
                         expression.
@@ -21,6 +21,6 @@ public class ExpressionParser {
                                 mapToObj(ch -> new SingleUndefinedOperation((char) ch)).
                                 collect(Collectors.toCollection(ArrayList::new)));
 
-        return new NumberParser(undefinedOperationGroup);
+        return new NegativeNumberParser(undefinedOperationGroup);
     }
 }

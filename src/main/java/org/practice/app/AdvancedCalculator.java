@@ -2,7 +2,7 @@ package org.practice.app;
 
 import org.practice.app.expression.ExpressionInitializer;
 import org.practice.app.expression.ExpressionValidator;
-import org.practice.app.parser.ExpressionParser;
+import org.practice.app.parser.ExpressionMapper;
 
 public class AdvancedCalculator {
 
@@ -21,9 +21,12 @@ public class AdvancedCalculator {
 
     private CalculationResult parseAndEvaluate(String expression){
         double result =
-                new ExpressionParser(expression).toUndefinedOperationsGroup().
-                        parseNegativeNumbers().parsePositiveNumbers().
-                        getPriorityOperandsParser().parsePriorityOperands().
+                new ExpressionMapper(expression)
+                        .mapToUndefinedOperations()
+                        .parseNegativeNumbers()
+                        .parsePositiveNumbers()
+                        .
+                        parsePriorityOperands().
                         getParenthesisParser().parseParenthesis().
                         getDefinedOperationParser().parseToDefinedOperation().
                         evaluate();

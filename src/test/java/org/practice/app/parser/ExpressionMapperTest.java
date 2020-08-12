@@ -12,7 +12,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
 
-public class ExpressionParserTest {
+public class ExpressionMapperTest {
 
     @Test
     public void testNumberToListOf1UndefinedOperation() {
@@ -45,7 +45,7 @@ public class ExpressionParserTest {
     }
 
     private UndefinedOperationGroup getUndefinedOperationGroupFromExpression(String expression) {
-        return new ExpressionParser(expression).toUndefinedOperationsGroup().getUndefinedOperationGroup();
+        return new ExpressionMapper(expression).mapToUndefinedOperations().getUndefinedOperationGroup();
     }
 
     private UndefinedOperationGroup getTestUndefinedOperationGroup() {

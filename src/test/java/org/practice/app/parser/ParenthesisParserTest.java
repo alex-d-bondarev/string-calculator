@@ -92,8 +92,8 @@ public class ParenthesisParserTest {
 
     private ParenthesisParser parseExpression(String expression) {
         return new ParenthesisParser(
-                new ExpressionParser(expression).
-                        toUndefinedOperationsGroup().
+                new ExpressionMapper(expression).
+                        mapToUndefinedOperations().
                         getUndefinedOperationGroup()).
                 parseParenthesis();
     }
