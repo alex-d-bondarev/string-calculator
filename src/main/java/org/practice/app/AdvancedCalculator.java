@@ -25,9 +25,9 @@ public class AdvancedCalculator {
                         .mapToUndefinedOperations()
                         .parseNegativeNumbers()
                         .parsePositiveNumbers()
+                        .parsePriorityOperands()
                         .
-                        parsePriorityOperands().
-                        getParenthesisParser().parseParenthesis().
+                        parseParenthesis().
                         getDefinedOperationParser().parseToDefinedOperation().
                         evaluate();
 

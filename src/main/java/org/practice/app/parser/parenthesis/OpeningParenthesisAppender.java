@@ -5,32 +5,44 @@ import org.practice.app.operation.raw.SingleUndefinedOperation;
 import org.practice.app.operation.raw.UndefinedOperation;
 import org.practice.app.operation.raw.UndefinedOperationGroup;
 
-public class OpeningParenthesisAppender extends Appender{
+public class OpeningParenthesisAppender extends Appender {
+    private int closingParenthesisAmount;
 
-    public void append(UndefinedOperationGroup undefinedOperationGroup) {
-        int closingParenthesisAmount = 0;
-        int newOpeningParenthesisPosition = 0;
-        int operationIndex = undefinedOperationGroup.getPosition() + 1;
-        Operation operation;
+    @Override
+    protected boolean newParenthesisPositionNotFound() {
+        return undefinedOperationGroup.hasPrevious() && !foundPositionForNewParenthesis;
+    }
 
-        while (undefinedOperationGroup.hasPrevious()) {
-            operation = undefinedOperationGroup.previous();
+    @Override
+    protected void initializeSearchForNewParenthesisPosition(UndefinedOperationGroup undefinedOperationGroup) {
+        super.initializeSearchForNewParenthesisPosition(undefinedOperationGroup);
 
-            if (operation instanceof UndefinedOperation) {
-                UndefinedOperation undefinedOperation = (UndefinedOperation) operation;
+        appendedOperationPosition = undefinedOperationGroup.getPosition() + 1;
+        newParenthesisPosition = 0;
+        closingParenthesisAmount = 0;
+    }
 
-                if (undefinedOperation.getValue() == CLOSING_PARENTHESIS) {
-                    closingParenthesisAmount++;
-                } else if (closingParenthesisAmount > 0 && undefinedOperation.getValue() == OPENING_PARENTHESIS) {
-                    closingParenthesisAmount--;
-                } else {
-                    newOpeningParenthesisPosition = undefinedOperationGroup.getPosition() + 1;
-                    break;
-                }
+    @Override
+    protected void checkForNewParenthesisPosition() {
+        Operation operation = undefinedOperationGroup.previous();
+
+        if (operation instanceof UndefinedOperation) {
+            UndefinedOperation undefinedOperation = (UndefinedOperation) operation;
+
+            if (undefinedOperation.getValue() == CLOSING_PARENTHESIS) {
+                closingParenthesisAmount++;
+            } else if (closingParenthesisAmount > 0 && undefinedOperation.getValue() == OPENING_PARENTHESIS) {
+                closingParenthesisAmount--;
+            } else {
+                newParenthesisPosition = undefinedOperationGroup.getPosition() + 1;
+                foundPositionForNewParenthesis = true;
             }
         }
+    }
 
-        undefinedOperationGroup.addOperationTo(new SingleUndefinedOperation(OPENING_PARENTHESIS), newOpeningParenthesisPosition);
-        undefinedOperationGroup.setPosition(operationIndex);
+    @Override
+    protected void addParenthesis() {
+        undefinedOperationGroup.addOperationTo(new SingleUndefinedOperation(OPENING_PARENTHESIS), newParenthesisPosition);
+        undefinedOperationGroup.setPosition(appendedOperationPosition);
     }
 }

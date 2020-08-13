@@ -7,6 +7,7 @@ import org.practice.app.operation.parsed.NumberOperation;
 import org.practice.app.operation.raw.SingleUndefinedOperation;
 import org.practice.app.operation.raw.UndefinedOperationGroup;
 import org.practice.app.parser.parenthesis.ParenthesisForPriorityOperandsParser;
+import org.practice.app.parser.parenthesis.ParenthesisParser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +27,7 @@ public class ParenthesisForPriorityOperandsParserTest {
         int expectedOperationsAmount = 1;
         addNumberOperation(1d);
 
-        ParenthesisForPriorityOperandsParser parser = parseOperations();
+        ParenthesisParser parser = parseOperations();
 
         assertOperationsAmount(expectedOperationsAmount, parser);
     }
@@ -38,7 +39,7 @@ public class ParenthesisForPriorityOperandsParserTest {
         addUndefinedOperation('+');
         addNumberOperation(1d);
 
-        ParenthesisForPriorityOperandsParser parser = parseOperations();
+        ParenthesisParser parser = parseOperations();
 
         assertOperationsAmount(expectedOperationsAmount, parser);
     }
@@ -50,7 +51,7 @@ public class ParenthesisForPriorityOperandsParserTest {
         addUndefinedOperation('-');
         addNumberOperation(1d);
 
-        ParenthesisForPriorityOperandsParser parser = parseOperations();
+        ParenthesisParser parser = parseOperations();
 
         assertOperationsAmount(expectedOperationsAmount, parser);
     }
@@ -63,7 +64,7 @@ public class ParenthesisForPriorityOperandsParserTest {
         addUndefinedOperation('*');
         addNumberOperation(1d);
 
-        ParenthesisForPriorityOperandsParser parser = parseOperations();
+        ParenthesisParser parser = parseOperations();
 
         assertOperationsAmount(expectedOperationsAmount, parser);
         assertOperationValues(expectedParsingResult, parser);
@@ -76,7 +77,7 @@ public class ParenthesisForPriorityOperandsParserTest {
         addUndefinedOperation('/');
         addNumberOperation(1d);
 
-        ParenthesisForPriorityOperandsParser parser = parseOperations();
+        ParenthesisParser parser = parseOperations();
 
         assertOperationsAmount(expectedOperationsAmount, parser);
     }
@@ -97,7 +98,7 @@ public class ParenthesisForPriorityOperandsParserTest {
         addNumberOperation(5d);
         addUndefinedOperation(')');
 
-        ParenthesisForPriorityOperandsParser parser = parseOperations();
+        ParenthesisParser parser = parseOperations();
 
         assertOperationsAmount(expectedOperationsAmount, parser);
         assertOperationValues(expectedParsingResult, parser);
@@ -111,17 +112,17 @@ public class ParenthesisForPriorityOperandsParserTest {
         operations.add(new SingleUndefinedOperation(c));
     }
 
-    private void assertOperationsAmount(int expectedOperationsAmount, ParenthesisForPriorityOperandsParser parser) {
+    private void assertOperationsAmount(int expectedOperationsAmount, ParenthesisParser parser) {
         int actualOperationsAmount = parser.getUndefinedOperationGroup().getOperations().size();
         assertEquals(expectedOperationsAmount, actualOperationsAmount);
     }
 
-    private void assertOperationValues(String expectedParsingResult, ParenthesisForPriorityOperandsParser parser) {
+    private void assertOperationValues(String expectedParsingResult, ParenthesisParser parser) {
         String actualParsingResult = parser.getUndefinedOperationGroup().toString();
         assertEquals(expectedParsingResult, actualParsingResult);
     }
 
-    private ParenthesisForPriorityOperandsParser parseOperations() {
+    private ParenthesisParser parseOperations() {
         UndefinedOperationGroup operationsGroup = new UndefinedOperationGroup(operations);
         return new ParenthesisForPriorityOperandsParser(operationsGroup).parsePriorityOperands();
     }

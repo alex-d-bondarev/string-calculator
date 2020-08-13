@@ -18,18 +18,14 @@ public class ParenthesisForPriorityOperandsParser {
         closingParenthesis = new ClosingParenthesisAppender();
     }
 
-    public ParenthesisParser getParenthesisParser() {
-        return new ParenthesisParser(undefinedOperationGroup);
-    }
-
-    public ParenthesisForPriorityOperandsParser parsePriorityOperands() {
+    public ParenthesisParser parsePriorityOperands() {
         undefinedOperationGroup.toStart();
 
         while (undefinedOperationGroup.hasNext()) {
             ifNextOperationIsPriorityOperand_thenSurroundWithParenthesis();
         }
 
-        return this;
+        return new ParenthesisParser(undefinedOperationGroup);
     }
 
     private void ifNextOperationIsPriorityOperand_thenSurroundWithParenthesis() {
