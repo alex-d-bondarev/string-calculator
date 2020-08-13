@@ -6,6 +6,8 @@ import org.practice.app.operation.parsed.NumberOperation;
 import org.practice.app.operation.raw.SingleUndefinedOperation;
 import org.practice.app.operation.raw.UndefinedOperation;
 import org.practice.app.operation.raw.UndefinedOperationGroup;
+import org.practice.app.parser.number.NegativeNumberParser;
+import org.practice.app.parser.number.PositiveNumberParser;
 
 import java.util.LinkedList;
 import java.util.List;

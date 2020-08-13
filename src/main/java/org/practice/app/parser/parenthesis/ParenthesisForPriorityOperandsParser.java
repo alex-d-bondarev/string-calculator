@@ -1,4 +1,4 @@
-package org.practice.app.parser;
+package org.practice.app.parser.parenthesis;
 
 import org.practice.app.operation.Operation;
 import org.practice.app.operation.raw.SingleUndefinedOperation;
@@ -10,66 +10,69 @@ public class ParenthesisForPriorityOperandsParser {
     private static final char OPENING_PARENTHESIS = '(';
     private static final char CLOSING_PARENTHESIS = ')';
 
-    private UndefinedOperationGroup undefinedOperationGroup;
+    private final UndefinedOperationGroup undefinedOperationGroup;
 
     public ParenthesisForPriorityOperandsParser(UndefinedOperationGroup operationsGroup) {
         undefinedOperationGroup = operationsGroup;
     }
 
-    public ParenthesisParser getParenthesisParser(){
+    public ParenthesisParser getParenthesisParser() {
         return new ParenthesisParser(undefinedOperationGroup);
     }
 
     public ParenthesisForPriorityOperandsParser parsePriorityOperands() {
-        int continueIndex = 0;
         undefinedOperationGroup.toStart();
-        UndefinedOperation currentUndefinedOperation;
-        Operation currentOperation;
 
         while (undefinedOperationGroup.hasNext()) {
-            currentOperation = undefinedOperationGroup.next();
-
-            if (currentOperation instanceof SingleUndefinedOperation) {
-
-                currentUndefinedOperation = (UndefinedOperation) currentOperation;
-                if (PRIORITY_OPERANDS.indexOf(currentUndefinedOperation.getValue()) >= 0) {
-                    continueIndex = undefinedOperationGroup.getPosition() + 1;
-                    addOpeningParenthesisToTheLeft(undefinedOperationGroup);
-                    undefinedOperationGroup.setPosition(continueIndex);
-                    addClosingParenthesisToTheRight(undefinedOperationGroup);
-                    undefinedOperationGroup.setPosition(continueIndex);
-                }
-            }
+            ifNextOperationIsPriorityOperand_thenSurroundWithParenthesis();
         }
 
         return this;
     }
 
+    private void ifNextOperationIsPriorityOperand_thenSurroundWithParenthesis() {
+        Operation operation = undefinedOperationGroup.next();
+        if (operation instanceof SingleUndefinedOperation
+                && thisIsPriorityOperand(operation)) {
+            surroundWithParenthesis();
+        }
+    }
+
+    private void surroundWithParenthesis() {
+        int operationIndex = undefinedOperationGroup.getPosition() + 1;
+        addOpeningParenthesisToTheLeft(undefinedOperationGroup);
+        undefinedOperationGroup.setPosition(operationIndex);
+        addClosingParenthesisToTheRight(undefinedOperationGroup);
+        undefinedOperationGroup.setPosition(operationIndex);
+    }
+
+    private boolean thisIsPriorityOperand(Operation currentOperation) {
+        return PRIORITY_OPERANDS.indexOf(((UndefinedOperation) currentOperation).getValue()) >= 0;
+    }
+
     private void addOpeningParenthesisToTheLeft(UndefinedOperationGroup undefinedOperationGroup) {
         int closingParenthesisAmount = 0;
-        int positionForNewParenthesis = 0;
-        Operation operationNow;
+        int newOpeningParenthesisPosition = 0;
+        Operation operation;
 
         while (undefinedOperationGroup.hasPrevious()) {
-            operationNow = undefinedOperationGroup.previous();
+            operation = undefinedOperationGroup.previous();
 
-            if (operationNow instanceof UndefinedOperation) {
-                UndefinedOperation undefinedOperationNow = (UndefinedOperation) operationNow;
+            if (operation instanceof UndefinedOperation) {
+                UndefinedOperation undefinedOperation = (UndefinedOperation) operation;
 
-                if (undefinedOperationNow.getValue() == CLOSING_PARENTHESIS) {
+                if (undefinedOperation.getValue() == CLOSING_PARENTHESIS) {
                     closingParenthesisAmount++;
-                } else if (closingParenthesisAmount > 0 && undefinedOperationNow.getValue() == OPENING_PARENTHESIS) {
+                } else if (closingParenthesisAmount > 0 && undefinedOperation.getValue() == OPENING_PARENTHESIS) {
                     closingParenthesisAmount--;
                 } else {
-                    positionForNewParenthesis = undefinedOperationGroup.getPosition() + 1;
+                    newOpeningParenthesisPosition = undefinedOperationGroup.getPosition() + 1;
                     break;
                 }
             }
         }
 
-        undefinedOperationGroup.addOperationTo(
-                new SingleUndefinedOperation(OPENING_PARENTHESIS),
-                positionForNewParenthesis);
+        undefinedOperationGroup.addOperationTo(new SingleUndefinedOperation(OPENING_PARENTHESIS), newOpeningParenthesisPosition);
     }
 
     private void addClosingParenthesisToTheRight(UndefinedOperationGroup undefinedOperationGroup) {
@@ -87,7 +90,7 @@ public class ParenthesisForPriorityOperandsParser {
                     openingParenthesisAmount++;
                 } else if (openingParenthesisAmount > 0 && undefinedOperationNow.getValue() == CLOSING_PARENTHESIS) {
                     openingParenthesisAmount--;
-                } else if (openingParenthesisAmount == 0){
+                } else if (openingParenthesisAmount == 0) {
                     positionForNewParenthesis = undefinedOperationGroup.getPosition();
                     break;
                 }

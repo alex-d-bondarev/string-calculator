@@ -2,6 +2,7 @@ package org.practice.app.parser;
 
 import org.practice.app.operation.raw.SingleUndefinedOperation;
 import org.practice.app.operation.raw.UndefinedOperationGroup;
+import org.practice.app.parser.number.NegativeNumberParser;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;

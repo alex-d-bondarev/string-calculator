@@ -1,4 +1,4 @@
-package org.practice.app.parser;
+package org.practice.app.parser.number;
 
 import org.practice.app.operation.Operation;
 import org.practice.app.operation.raw.UndefinedOperation;

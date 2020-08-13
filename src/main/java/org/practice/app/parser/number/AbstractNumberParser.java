@@ -1,4 +1,4 @@
-package org.practice.app.parser;
+package org.practice.app.parser.number;
 
 import org.practice.app.data_structure.SubListIndex;
 import org.practice.app.operation.parsed.NumberOperation;
