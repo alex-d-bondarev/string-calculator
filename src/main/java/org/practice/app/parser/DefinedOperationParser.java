@@ -60,4 +60,8 @@ public class DefinedOperationParser {
             }
         }
     }
+
+    public UndefinedOperationGroup getUndefinedOperationGroup() {
+        return undefinedOperationGroup;
+    }
 }

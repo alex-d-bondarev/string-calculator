@@ -10,6 +10,10 @@ public class AdvancedCalculator {
         String preparedExpression = new ExpressionInitializer(expression).prepareExpression();
         ExpressionValidator validator = new ExpressionValidator(preparedExpression);
 
+        return getExpressionResult(preparedExpression, validator);
+    }
+
+    private CalculationResult getExpressionResult(String preparedExpression, ExpressionValidator validator) {
         if (validator.hasUnsupportedSymbols()) {
             return generateUnsupportedSymbolsMessage(preparedExpression);
         } else if (validator.hasUnbalancedParentheses()) {
@@ -17,21 +21,6 @@ public class AdvancedCalculator {
         } else {
             return parseAndEvaluate(preparedExpression);
         }
-    }
-
-    private CalculationResult parseAndEvaluate(String expression){
-        double result =
-                new ExpressionMapper(expression)
-                        .mapToUndefinedOperations()
-                        .parseNegativeNumbers()
-                        .parsePositiveNumbers()
-                        .parsePriorityOperands()
-                        .
-                        parseParenthesis().
-                        getDefinedOperationParser().parseToDefinedOperation().
-                        evaluate();
-
-        return new CalculationResult(Double.toString(result));
     }
 
     private CalculationResult generateUnsupportedSymbolsMessage(String expression) {
@@ -42,5 +31,20 @@ public class AdvancedCalculator {
     private CalculationResult generateUnbalancedBracketsMessage(String expression) {
         String message = "Given expression '%s' has unbalanced brackets.";
         return new CalculationResult(String.format(message, expression));
+    }
+
+    private CalculationResult parseAndEvaluate(String expression) {
+        double result =
+                new ExpressionMapper(expression)
+                        .mapToUndefinedOperations()
+                        .parseNegativeNumbers()
+                        .parsePositiveNumbers()
+                        .parsePriorityOperands()
+                        .
+                                parseParenthesis().
+                        parseToDefinedOperation().
+                        evaluate();
+
+        return new CalculationResult(Double.toString(result));
     }
 }

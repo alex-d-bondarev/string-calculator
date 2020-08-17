@@ -23,7 +23,7 @@ public class ParenthesisParser {
         return new DefinedOperationParser(undefinedOperationGroup);
     }
 
-    public ParenthesisParser parseParenthesis() {
+    public DefinedOperationParser parseParenthesis() {
         undefinedOperationGroup.toStart();
         UndefinedOperation currentUndefinedOperation;
         Operation currentOperation;
@@ -65,7 +65,7 @@ public class ParenthesisParser {
             }
         }
 
-        return this;
+        return new DefinedOperationParser(undefinedOperationGroup);
     }
 
     public UndefinedOperationGroup getUndefinedOperationGroup() {

@@ -31,7 +31,7 @@ public class ParenthesisParserTest {
         addUndefinedOperation('+');
         addNumberOperation(2d);
 
-        ParenthesisParser parser = parseOperations();
+        DefinedOperationParser parser = parseOperations();
 
         assertTrue(getOperationFromParserByIndex(parser, 0) instanceof NumberOperation);
         assertTrue(getOperationFromParserByIndex(parser, 1) instanceof UndefinedOperation);
@@ -58,7 +58,7 @@ public class ParenthesisParserTest {
         addNumberOperation(2d);
         addUndefinedOperation(')');
 
-        ParenthesisParser parser = parseOperations();
+        DefinedOperationParser parser = parseOperations();
         assertTrue(getOperationFromParserByIndex(parser, 0) instanceof UndefinedOperationGroup);
 
         List<Operation> subGroup = ((UndefinedOperationGroup) getOperationFromParserByIndex(parser, 0)).getOperations();
@@ -87,11 +87,11 @@ public class ParenthesisParserTest {
         operations.add(new NumberOperation(number));
     }
 
-    private ParenthesisParser parseOperations() {
+    private DefinedOperationParser parseOperations() {
         return new ParenthesisParser(new UndefinedOperationGroup(operations)).parseParenthesis();
     }
 
-    private ParenthesisParser parseExpression(String expression) {
+    private DefinedOperationParser parseExpression(String expression) {
         return new ParenthesisParser(
                 new ExpressionMapper(expression).
                         mapToUndefinedOperations().
@@ -99,7 +99,7 @@ public class ParenthesisParserTest {
                 parseParenthesis();
     }
 
-    private Operation getOperationFromParserByIndex(ParenthesisParser parser, int i) {
+    private Operation getOperationFromParserByIndex(DefinedOperationParser parser, int i) {
         return parser.getUndefinedOperationGroup().getOperations().get(i);
     }
 }
