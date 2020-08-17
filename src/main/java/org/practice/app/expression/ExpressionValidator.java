@@ -1,6 +1,6 @@
 package org.practice.app.expression;
 
-import org.practice.app.util.ParenthesisUtil;
+import org.practice.app.parser.parenthesis.ParenthesisUtil;
 
 public class ExpressionValidator {
 

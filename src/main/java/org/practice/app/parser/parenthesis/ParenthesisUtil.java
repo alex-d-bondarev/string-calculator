@@ -1,11 +1,8 @@
-package org.practice.app.util;
+package org.practice.app.parser.parenthesis;
 
 import java.util.*;
 
 public class ParenthesisUtil {
-
-    private static final char OPENING_PAREN = '(';
-    private static final char CLOSING_PAREN = ')';
 
     /**
      * @param parenthesis string to verify
@@ -21,9 +18,9 @@ public class ParenthesisUtil {
         for (int i = 0; i < parenthesis.length() && balanced; i++) {
             char nextChar = parenthesis.charAt(i);
 
-            if (nextChar == OPENING_PAREN) {
+            if (nextChar == Parenthesis.OPENING) {
                 charStack.push(nextChar);
-            } else if (!charStack.isEmpty() && nextChar == CLOSING_PAREN) {
+            } else if (!charStack.isEmpty() && nextChar == Parenthesis.CLOSING) {
                 charStack.pop();
             } else {
                 balanced = false;

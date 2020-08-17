@@ -25,8 +25,8 @@ public class DefinedOperationParser {
             return (DefinedOperation) operationToParse;
         } else {
             UndefinedOperationGroup undefinedGroup = (UndefinedOperationGroup) operationToParse;
-            if (undefinedGroup.getSize() == 1) {
-                return parseOperationsToDefinedOperation(undefinedGroup.getOperations().get(0));
+            if (undefinedGroup.size() == 1) {
+                return parseOperationsToDefinedOperation(undefinedGroup.get(0));
             } else {
                 undefinedGroup.toEnd();
                 Operation operationNow;

@@ -21,7 +21,7 @@ public class ExpressionMapperTest {
 
         UndefinedOperationGroup actualGroup = getUndefinedOperationGroupFromExpression(expression);
 
-        assertThat(actualGroup.getOperations().size(), is(expectedOperationsSize));
+        assertThat(actualGroup.size(), is(expectedOperationsSize));
     }
 
     @Test
@@ -31,7 +31,7 @@ public class ExpressionMapperTest {
 
         UndefinedOperationGroup actualGroup = getUndefinedOperationGroupFromExpression(expression);
 
-        assertThat(actualGroup.getOperations().size(), is(expectedOperationsSize));
+        assertThat(actualGroup.size(), is(expectedOperationsSize));
     }
 
     @Test

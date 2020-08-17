@@ -12,7 +12,6 @@ public abstract class AbstractNumberParser {
     String textNumber;
 
     protected UndefinedOperationGroup replaceCurrentUndefinedOperationInGroup_WithNumberOperation(UndefinedOperationGroup group) {
-
         this.group = group;
 
         calculateSubListIndex();
@@ -42,6 +41,6 @@ public abstract class AbstractNumberParser {
 
     private UndefinedOperationGroup replaceSublistOfUndefinedOperationsWithNumberOperation() {
         NumberOperation numberOperation = new NumberOperation(Double.parseDouble(textNumber));
-        return group.replaceBetween(numberOperation, subListIndex);
+        return group.replaceByIndex(numberOperation, subListIndex);
     }
 }

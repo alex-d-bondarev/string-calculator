@@ -97,10 +97,10 @@ public class NegativeNumberParserTest {
     }
 
     private Operation getFirstOperationFromParser(PositiveNumberParser parser) {
-        return parser.getUndefinedOperationGroup().getOperations().get(0);
+        return parser.getUndefinedOperationGroup().get(0);
     }
 
     private int getAmountOfOperationsFrom(PositiveNumberParser parser) {
-        return parser.getUndefinedOperationGroup().getOperations().size();
+        return parser.getUndefinedOperationGroup().size();
     }
 }

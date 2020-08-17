@@ -10,7 +10,6 @@ import org.practice.app.operation.parsed.NumberOperation;
 import org.practice.app.operation.parsed.SumOperation;
 import org.practice.app.operation.raw.SingleUndefinedOperation;
 import org.practice.app.operation.raw.UndefinedOperationGroup;
-import org.practice.app.parser.parenthesis.ParenthesisParser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,14 +23,6 @@ public class DefinedOperationParserTest {
     @Before
     public void setup() {
         operations = new ArrayList<>();
-    }
-
-    @Test
-    public void parenthesisParserCreatesDefinedOperationParser() {
-        addNumberOneOperation();
-
-        UndefinedOperationGroup operationsGroup = new UndefinedOperationGroup(operations);
-        new ParenthesisParser(operationsGroup).getDefinedOperationParser();
     }
 
     @Test

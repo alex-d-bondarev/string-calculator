@@ -45,7 +45,7 @@ public class ParenthesisParserTest {
         addNumberOperation(1d);
         addUndefinedOperation(')');
 
-        int actualOperationsAmount = parseOperations().getUndefinedOperationGroup().getOperations().size();
+        int actualOperationsAmount = parseOperations().getUndefinedOperationGroup().size();
 
         assertEquals(expectedOperationsAmount, actualOperationsAmount);
     }
@@ -100,6 +100,6 @@ public class ParenthesisParserTest {
     }
 
     private Operation getOperationFromParserByIndex(DefinedOperationParser parser, int i) {
-        return parser.getUndefinedOperationGroup().getOperations().get(i);
+        return parser.getUndefinedOperationGroup().get(i);
     }
 }

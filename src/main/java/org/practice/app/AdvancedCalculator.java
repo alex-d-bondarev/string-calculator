@@ -40,8 +40,8 @@ public class AdvancedCalculator {
                         .parseNegativeNumbers()
                         .parsePositiveNumbers()
                         .parsePriorityOperands()
+                        .parseParenthesis()
                         .
-                                parseParenthesis().
                         parseToDefinedOperation().
                         evaluate();
 

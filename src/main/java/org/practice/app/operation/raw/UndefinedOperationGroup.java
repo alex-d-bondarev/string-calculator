@@ -9,7 +9,7 @@ import java.util.List;
 public class UndefinedOperationGroup implements UndefinedOperation {
     private static final int START_POSITION = -1;
     private static final char VALUE = '_';
-    private List<Operation> operations;
+    private final List<Operation> operations;
     private int position = START_POSITION;
 
     public UndefinedOperationGroup(List<Operation> operations){
@@ -24,6 +24,10 @@ public class UndefinedOperationGroup implements UndefinedOperation {
         return operations;
     }
 
+    public List<Operation> subGroup(int start, int end){
+        return operations.subList(start, end);
+    }
+
     public void toStart(){
         position = START_POSITION;
     }
@@ -32,7 +36,7 @@ public class UndefinedOperationGroup implements UndefinedOperation {
         position = operations.size();
     }
 
-    public int getSize(){
+    public int size(){
         return operations.size();
     }
 
@@ -46,6 +50,10 @@ public class UndefinedOperationGroup implements UndefinedOperation {
 
     public Operation getCurrent(){
         return operations.get(position);
+    }
+
+    public Operation get(int index){
+        return operations.get(index);
     }
 
     public Operation next(){
@@ -72,7 +80,7 @@ public class UndefinedOperationGroup implements UndefinedOperation {
         position = newPosition;
     }
 
-    public UndefinedOperationGroup replaceBetween(Operation newOperation, SubListIndex index){
+    public UndefinedOperationGroup replaceByIndex(Operation newOperation, SubListIndex index){
         operations.subList(index.from, index.to).clear();
         operations.add(index.from, newOperation);
         position = index.from + 1;

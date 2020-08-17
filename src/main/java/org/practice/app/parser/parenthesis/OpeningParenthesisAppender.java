@@ -29,9 +29,9 @@ public class OpeningParenthesisAppender extends Appender {
         if (operation instanceof UndefinedOperation) {
             UndefinedOperation undefinedOperation = (UndefinedOperation) operation;
 
-            if (undefinedOperation.getValue() == CLOSING_PARENTHESIS) {
+            if (undefinedOperation.getValue() == Parenthesis.CLOSING) {
                 closingParenthesisAmount++;
-            } else if (closingParenthesisAmount > 0 && undefinedOperation.getValue() == OPENING_PARENTHESIS) {
+            } else if (closingParenthesisAmount > 0 && undefinedOperation.getValue() == Parenthesis.OPENING) {
                 closingParenthesisAmount--;
             } else {
                 newParenthesisPosition = undefinedOperationGroup.getPosition() + 1;
@@ -42,7 +42,7 @@ public class OpeningParenthesisAppender extends Appender {
 
     @Override
     protected void addParenthesis() {
-        undefinedOperationGroup.addOperationTo(new SingleUndefinedOperation(OPENING_PARENTHESIS), newParenthesisPosition);
+        undefinedOperationGroup.addOperationTo(new SingleUndefinedOperation(Parenthesis.OPENING), newParenthesisPosition);
         undefinedOperationGroup.setPosition(appendedOperationPosition);
     }
 }

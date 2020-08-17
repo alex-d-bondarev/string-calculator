@@ -90,10 +90,10 @@ public class PositiveNumberParserTest {
     }
 
     private Operation getOperationFromParserByIndex(ParenthesisForPriorityOperandsParser parser, int i) {
-        return parser.getUndefinedOperationGroup().getOperations().get(i);
+        return parser.getUndefinedOperationGroup().get(i);
     }
 
     private int getAmountOfOperationsFrom(ParenthesisForPriorityOperandsParser parser) {
-        return parser.getUndefinedOperationGroup().getOperations().size();
+        return parser.getUndefinedOperationGroup().size();
     }
 }

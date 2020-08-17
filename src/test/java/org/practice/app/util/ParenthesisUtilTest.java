@@ -1,6 +1,7 @@
 package org.practice.app.util;
 
 import org.junit.Test;
+import org.practice.app.parser.parenthesis.ParenthesisUtil;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
