@@ -1,34 +1,32 @@
 package org.practice.app;
 
-import org.practice.app.expression.ExpressionInitializer;
-import org.practice.app.expression.ExpressionValidator;
 import org.practice.app.parser.ExpressionMapper;
 
 public class AdvancedCalculator {
 
-    public CalculationResult evaluate(String expression) {
-        String preparedExpression = new ExpressionInitializer(expression).prepareExpression();
-        ExpressionValidator validator = new ExpressionValidator(preparedExpression);
+    private Expression expression;
 
-        return getExpressionResult(preparedExpression, validator);
+    public CalculationResult evaluate(String expression) {
+        this.expression = new Expression(expression);
+        return getExpressionEvaluation();
     }
 
-    private CalculationResult getExpressionResult(String preparedExpression, ExpressionValidator validator) {
-        if (validator.hasUnsupportedSymbols()) {
-            return generateUnsupportedSymbolsMessage(preparedExpression);
-        } else if (validator.hasUnbalancedParentheses()) {
-            return generateUnbalancedBracketsMessage(preparedExpression);
+    private CalculationResult getExpressionEvaluation() {
+        if (expression.hasUnsupportedSymbols()) {
+            return getResultForUnsupportedSymbols(expression.getExpression());
+        } else if (expression.hasUnbalancedParentheses()) {
+            return getResultForUnbalancedBrackets(expression.getExpression());
         } else {
-            return parseAndEvaluate(preparedExpression);
+            return parseAndEvaluate(expression.getExpression());
         }
     }
 
-    private CalculationResult generateUnsupportedSymbolsMessage(String expression) {
+    private CalculationResult getResultForUnsupportedSymbols(String expression) {
         String message = "Given expression '%s' contains unexpected symbols.";
         return new CalculationResult(String.format(message, expression));
     }
 
-    private CalculationResult generateUnbalancedBracketsMessage(String expression) {
+    private CalculationResult getResultForUnbalancedBrackets(String expression) {
         String message = "Given expression '%s' has unbalanced brackets.";
         return new CalculationResult(String.format(message, expression));
     }

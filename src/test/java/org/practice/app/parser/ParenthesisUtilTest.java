@@ -1,4 +1,4 @@
-package org.practice.app.util;
+package org.practice.app.parser;
 
 import org.junit.Test;
 import org.practice.app.parser.parenthesis.ParenthesisUtil;
