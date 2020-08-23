@@ -41,9 +41,8 @@ public class AdvancedCalculator {
                         .parsePositiveNumbers()
                         .parsePriorityOperands()
                         .parseParenthesis()
-                        .
-                        parseToDefinedOperation().
-                        evaluate();
+                        .parseToDefinedOperation()
+                        .evaluate();
 
         return new CalculationResult(Double.toString(result));
     }

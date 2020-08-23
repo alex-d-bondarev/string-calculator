@@ -4,7 +4,7 @@ import org.practice.app.data_structure.SubListIndex;
 import org.practice.app.operation.Operation;
 import org.practice.app.operation.raw.UndefinedOperation;
 import org.practice.app.operation.raw.UndefinedOperationGroup;
-import org.practice.app.parser.DefinedOperationParser;
+import org.practice.app.parser.operations.DefinedOperationParser;
 
 import java.util.ArrayList;
 import java.util.List;

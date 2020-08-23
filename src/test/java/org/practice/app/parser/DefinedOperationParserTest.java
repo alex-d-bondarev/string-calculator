@@ -10,6 +10,7 @@ import org.practice.app.operation.parsed.NumberOperation;
 import org.practice.app.operation.parsed.SumOperation;
 import org.practice.app.operation.raw.SingleUndefinedOperation;
 import org.practice.app.operation.raw.UndefinedOperationGroup;
+import org.practice.app.parser.operations.DefinedOperationParser;
 
 import java.util.ArrayList;
 import java.util.List;
