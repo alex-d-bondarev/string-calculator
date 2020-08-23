@@ -1,6 +1,5 @@
 package org.practice.app.parser.number;
 
-import org.practice.app.data_structure.SubListIndex;
 import org.practice.app.operation.parsed.NumberOperation;
 import org.practice.app.operation.raw.UndefinedOperation;
 import org.practice.app.operation.raw.UndefinedOperationGroup;
@@ -8,8 +7,9 @@ import org.practice.app.operation.raw.UndefinedOperationGroup;
 public abstract class AbstractNumberParser {
 
     private UndefinedOperationGroup group;
-    private SubListIndex subListIndex;
-    String textNumber;
+    private String textNumber;
+    private int from;
+    private int to;
 
     protected UndefinedOperationGroup replaceCurrentUndefinedOperationInGroup_WithNumberOperation(UndefinedOperationGroup group) {
         this.group = group;
@@ -19,10 +19,9 @@ public abstract class AbstractNumberParser {
     }
 
     private void calculateSubListIndex() {
-        int from = group.getPosition();
+        from = group.getPosition();
         extractTextNumberStartingWithGivenOperation();
-        int to = from + textNumber.length();
-        subListIndex = new SubListIndex(from, to);
+        to = from + textNumber.length();
     }
 
     private void extractTextNumberStartingWithGivenOperation() {
@@ -41,6 +40,6 @@ public abstract class AbstractNumberParser {
 
     private UndefinedOperationGroup replaceSublistOfUndefinedOperationsWithNumberOperation() {
         NumberOperation numberOperation = new NumberOperation(Double.parseDouble(textNumber));
-        return group.replaceByIndex(numberOperation, subListIndex);
+        return group.replaceByIndex(numberOperation, from, to);
     }
 }

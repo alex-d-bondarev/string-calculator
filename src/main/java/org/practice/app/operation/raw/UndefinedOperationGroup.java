@@ -1,6 +1,5 @@
 package org.practice.app.operation.raw;
 
-import org.practice.app.data_structure.SubListIndex;
 import org.practice.app.operation.Operation;
 
 import java.util.ArrayList;
@@ -80,10 +79,10 @@ public class UndefinedOperationGroup implements UndefinedOperation {
         position = newPosition;
     }
 
-    public UndefinedOperationGroup replaceByIndex(Operation newOperation, SubListIndex index){
-        operations.subList(index.from, index.to).clear();
-        operations.add(index.from, newOperation);
-        position = index.from + 1;
+    public UndefinedOperationGroup replaceByIndex(Operation newOperation, int from, int to){
+        operations.subList(from, to).clear();
+        operations.add(from, newOperation);
+        position = from + 1;
         return this;
     }
 

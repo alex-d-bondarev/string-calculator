@@ -1,6 +1,5 @@
 package org.practice.app.parser.parenthesis;
 
-import org.practice.app.data_structure.SubListIndex;
 import org.practice.app.operation.Operation;
 import org.practice.app.operation.raw.UndefinedOperation;
 import org.practice.app.operation.raw.UndefinedOperationGroup;
@@ -12,7 +11,6 @@ import java.util.List;
 public class ParenthesisParser {
     private UndefinedOperationGroup undefinedOperationGroup;
     private Operation operation;
-    private SubListIndex index;
 
     private int parenthesisStart = 0;
     private int parenthesisEnd = 0;
@@ -53,16 +51,12 @@ public class ParenthesisParser {
         }
     }
 
-    private void updateParenthesisIndex() {
-        index = new SubListIndex(parenthesisStart, parenthesisEnd + 1);
-    }
-
     private void convertExpressionInBracketsIntoSubgroup() {
         List<Operation> subOperations = new ArrayList<>(
                 undefinedOperationGroup.subGroup(parenthesisStart + 1, parenthesisEnd));
 
         undefinedOperationGroup = undefinedOperationGroup
-                .replaceByIndex(new UndefinedOperationGroup(subOperations), index);
+                .replaceByIndex(new UndefinedOperationGroup(subOperations), parenthesisStart, parenthesisEnd + 1);
     }
 
     private boolean parenthesisSurroundsOnly1Number() {
@@ -71,7 +65,7 @@ public class ParenthesisParser {
 
     private void removeExtraParenthesis() {
         undefinedOperationGroup = undefinedOperationGroup.replaceByIndex(
-                undefinedOperationGroup.getPrevious(), index);
+                undefinedOperationGroup.getPrevious(), parenthesisStart, parenthesisEnd + 1);
     }
 
     private void ifParenthesis_thenUpdateParenthesisPosition() {
@@ -81,7 +75,6 @@ public class ParenthesisParser {
         } else if (undefinedOperation.getValue() == Parenthesis.CLOSING) {
             updateParenthesisEnd();
         }
-        updateParenthesisIndex();
     }
 
     private void updateParenthesisEnd() {
