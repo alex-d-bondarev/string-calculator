@@ -1,6 +1,8 @@
 package org.practice.app;
 
-import org.practice.app.parser.parenthesis.ParenthesisUtil;
+import org.practice.app.parser.parenthesis.Parenthesis;
+
+import java.util.Stack;
 
 public class Expression {
     private String expression;
@@ -26,8 +28,27 @@ public class Expression {
     }
 
     public boolean hasUnbalancedParentheses() {
-        return !ParenthesisUtil.parenthesisAreBalanced(
-                expression.replaceAll("[^()]", ""));
+        return !parenthesisAreBalanced();
+    }
+
+    public boolean parenthesisAreBalanced() {
+        String parenthesisOnly = expression.replaceAll("[^()]", "");
+        boolean balanced = true;
+        Stack<Character> charStack = new Stack<>();
+
+        for (int i = 0; i < parenthesisOnly.length() && balanced; i++) {
+            char nextChar = parenthesisOnly.charAt(i);
+
+            if (nextChar == Parenthesis.OPENING) {
+                charStack.push(nextChar);
+            } else if (!charStack.isEmpty() && nextChar == Parenthesis.CLOSING) {
+                charStack.pop();
+            } else {
+                balanced = false;
+            }
+        }
+
+        return charStack.isEmpty() && balanced;
     }
 
     public String getExpression(){

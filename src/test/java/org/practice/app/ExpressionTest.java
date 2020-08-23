@@ -1,7 +1,6 @@
 package org.practice.app;
 
 import org.junit.Test;
-import org.practice.app.Expression;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -51,5 +50,59 @@ public class ExpressionTest {
     public void testExpressionWithUnbalancedParenthesis() {
         expression = new Expression("(1+2+3))");
         assertTrue(expression.hasUnbalancedParentheses());
+    }
+
+    @Test
+    public void onlyOpeningBracketsIsUnBalanced() {
+        expression = new Expression("(");
+        assertFalse(expression.parenthesisAreBalanced());
+    }
+
+    @Test
+    public void onlyClosingBracketsIsUnBalanced() {
+        expression = new Expression(")");
+        assertFalse(expression.parenthesisAreBalanced());
+    }
+
+    @Test
+    public void noSymbolsMeansBalanced() {
+        expression = new Expression("");
+        assertTrue(expression.parenthesisAreBalanced());
+    }
+
+    @Test
+    public void balancedBracketsIdentifiedCorrectly() {
+        expression = new Expression("()");
+        assertTrue(expression.parenthesisAreBalanced());
+    }
+
+    @Test
+    public void multipleLevelsOfBalancedBracketsIdentifiedCorrectly() {
+        expression = new Expression("((((()))))");
+        assertTrue(expression.parenthesisAreBalanced());
+    }
+
+    @Test
+    public void combinationOfBalancedBracketsIdentifiedCorrectly() {
+        expression = new Expression("(()()(()))");
+        assertTrue(expression.parenthesisAreBalanced());
+    }
+
+    @Test
+    public void lessOpeningBracketsThanClosedIsUnBalanced() {
+        expression = new Expression("(((()))))");
+        assertFalse(expression.parenthesisAreBalanced());
+    }
+
+    @Test
+    public void lessClosingBracketsThanOpeningIsUnBalanced() {
+        expression = new Expression("((((())))");
+        assertFalse(expression.parenthesisAreBalanced());
+    }
+
+    @Test
+    public void differentParenthesisOrderIsUnbalanced() {
+        expression = new Expression(")(");
+        assertFalse(expression.parenthesisAreBalanced());
     }
 }
