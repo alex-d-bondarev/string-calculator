@@ -15,6 +15,21 @@ This calculator parses given String expression and calculates its result. Input 
 - Opening and closing brackets _(are processed as equal)_ **(** **)**, **{** **}** and **\[** **\]**  
 - Spaces
 
+## How to use
+
+Fill `AdvancedCalculator` with expression that should be evaluated:
+
+```java
+String result = new AdvancedCalculator().evaluate("2 + 2");
+```
+Evaluated result is expected to contain one of the following:
+1. Decimal number as a String
+1. Unexpected symbols error. Like: `"Given expression '%s' contains unexpected symbols."`
+1. Unbalanced parenthesis error. Like: `"Given expression '%s' has unbalanced parenthesis."`.
+
+For examples please check [StringCalculatorTest](./src/test/java/org/practice/app/StringCalculatorTest.java) 
+or other project tests for more details.
+
 ## How it works
 
 1. Prepare expression for being parsed
@@ -22,17 +37,29 @@ This calculator parses given String expression and calculates its result. Input 
     1. Replace all different kinds of brackets with parenthesis
 1. Verify given expression is valid
     1. Ensure no extra symbols were provided
-    1. Ensure parenthesis are balanced
+    1. Ensure parentheses are balanced
 1.  Parse expression into more specific operations:
-    1.  Convert each symbol into a List of undefined operations
-    1.  Parse all negative numbers into `NumberOperation`
-    1.  Parse all positive numbers into `NumberOperation`
-    1.  Surround multiplication and division operands with parenthesis to simplify further parsing
-    1.  Group all operands to simplify further parsing
-    1.  Parse received expression from right to left\* into specific operations as a tree
+    1.  Convert each symbol into a List of undefined operations. 
+        For example: `1+-1` will become `1,+,-,1`.
+    1.  Parse all negative numbers into `NumberOperation`.
+        For example: `1,+,-,1` will become `1,+,-1`.
+    1.  Parse all positive numbers into `NumberOperation`.
+    1.  Surround multiplication and division operands with parentheses to simplify further parsing.
+        For example `1,+,-1,*,2` will become `1,+,(,-1,*,2,)`.
+    1.  Group all operands to simplify further parsing.
+        For example `1,+,(,-1,*,2,)` will become `(,1,+,(,-1,*,2,),)`.
+    1.  Parse received expression from right to left\* into specific operations as a tree.
+        For example `(,1,+,(,-1,*,2,),)` will become:
+        ```
+          +
+         / \
+        1   *
+           / \
+         -1   2
+        ```
 1.  Evaluate received operations tree into expression result
 
-\* Note:
+\* **Note**:
 
 ```text
 We can parse from left to right. This will result into the following cases:

@@ -5,12 +5,12 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class AdvancedCalculatorTest {
-    private AdvancedCalculator calc;
+public class StringCalculatorTest {
+    private StringCalculator calc;
 
     @Before
     public void setup() {
-        calc = new AdvancedCalculator();
+        calc = new StringCalculator();
     }
 
     @Test
@@ -30,7 +30,7 @@ public class AdvancedCalculatorTest {
     @Test
     public void unbalancedBracketsAreUnexpected() {
         String testExpression = "2 + 2)";
-        String expectedResult = "Given expression '2+2)' has unbalanced brackets.";
+        String expectedResult = "Given expression '2+2)' has unbalanced parenthesis.";
         assertCalculatorEvaluation(testExpression, expectedResult);
     }
 
@@ -119,7 +119,7 @@ public class AdvancedCalculatorTest {
     }
 
     private void assertCalculatorEvaluation(String expression, String expectedResult) {
-        CalculationResult result = calc.evaluate(expression);
-        assertEquals(expectedResult, result.getResult());
+        String result = calc.evaluate(expression);
+        assertEquals(expectedResult, result);
     }
 }

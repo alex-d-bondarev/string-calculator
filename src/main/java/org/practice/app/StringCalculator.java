@@ -2,16 +2,16 @@ package org.practice.app;
 
 import org.practice.app.parser.ExpressionMapper;
 
-public class AdvancedCalculator {
+public class StringCalculator {
 
     private Expression expression;
 
-    public CalculationResult evaluate(String expression) {
+    public String evaluate(String expression) {
         this.expression = new Expression(expression);
         return getExpressionEvaluation();
     }
 
-    private CalculationResult getExpressionEvaluation() {
+    private String getExpressionEvaluation() {
         if (expression.hasUnsupportedSymbols()) {
             return getResultForUnsupportedSymbols(expression.getExpression());
         } else if (expression.hasUnbalancedParentheses()) {
@@ -21,17 +21,17 @@ public class AdvancedCalculator {
         }
     }
 
-    private CalculationResult getResultForUnsupportedSymbols(String expression) {
+    private String getResultForUnsupportedSymbols(String expression) {
         String message = "Given expression '%s' contains unexpected symbols.";
-        return new CalculationResult(String.format(message, expression));
+        return String.format(message, expression);
     }
 
-    private CalculationResult getResultForUnbalancedBrackets(String expression) {
-        String message = "Given expression '%s' has unbalanced brackets.";
-        return new CalculationResult(String.format(message, expression));
+    private String getResultForUnbalancedBrackets(String expression) {
+        String message = "Given expression '%s' has unbalanced parenthesis.";
+        return String.format(message, expression);
     }
 
-    private CalculationResult parseAndEvaluate(String expression) {
+    private String parseAndEvaluate(String expression) {
         double result =
                 new ExpressionMapper(expression)
                         .mapToUndefinedOperations()
@@ -42,6 +42,6 @@ public class AdvancedCalculator {
                         .parseToDefinedOperation()
                         .evaluate();
 
-        return new CalculationResult(Double.toString(result));
+        return Double.toString(result);
     }
 }
