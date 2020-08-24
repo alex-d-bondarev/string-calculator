@@ -5,7 +5,7 @@ import org.practice.app.operation.Operation;
 import org.practice.app.operation.parsed.NumberOperation;
 import org.practice.app.operation.raw.SingleUndefinedOperation;
 import org.practice.app.operation.raw.UndefinedOperation;
-import org.practice.app.operation.raw.UndefinedOperationGroup;
+import org.practice.app.operation.raw.UndefinedOperationsList;
 import org.practice.app.parser.number.NegativeNumberParser;
 import org.practice.app.parser.number.PositiveNumberParser;
 import org.practice.app.parser.parenthesis.ParenthesisForPriorityOperandsParser;
@@ -76,13 +76,13 @@ public class PositiveNumberParserTest {
                 parsePositiveNumbers();
     }
 
-    private UndefinedOperationGroup generateOperationGroupFromChars(char... values) {
+    private UndefinedOperationsList generateOperationGroupFromChars(char... values) {
         List<Operation> operationsList = new LinkedList<>();
         for (char value : values) {
             operationsList.add(new SingleUndefinedOperation(value));
         }
 
-        return new UndefinedOperationGroup(operationsList);
+        return new UndefinedOperationsList(operationsList);
     }
 
     private Operation getFirstOperationFromParser(ParenthesisForPriorityOperandsParser parser) {

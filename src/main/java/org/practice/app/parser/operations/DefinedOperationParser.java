@@ -5,7 +5,7 @@ import org.practice.app.operation.OperationFactory;
 import org.practice.app.operation.parsed.DefinedOperation;
 import org.practice.app.operation.parsed.OperandOperation;
 import org.practice.app.operation.raw.SingleUndefinedOperation;
-import org.practice.app.operation.raw.UndefinedOperationGroup;
+import org.practice.app.operation.raw.UndefinedOperationsList;
 
 public class DefinedOperationParser {
     private static final OperationFactory OPERATION_FACTORY = new OperationFactory();
@@ -14,7 +14,7 @@ public class DefinedOperationParser {
     private Operation operationNow;
     private DefinedOperation leftOperation;
     private DefinedOperation rightOperation;
-    private UndefinedOperationGroup undefinedOperationGroup;
+    private UndefinedOperationsList undefinedOperationsList;
 
     public DefinedOperationParser(Operation operation) {
         this.operation = operation;
@@ -29,7 +29,8 @@ public class DefinedOperationParser {
         if (operationIsAlreadyDefined(operationToParse)) {
             return (DefinedOperation) operationToParse;
         } else {
-            return parseUndefinedOperation((UndefinedOperationGroup) operationToParse);
+            undefinedOperationsList = (UndefinedOperationsList) operationToParse;
+            return parseUndefinedOperation();
         }
     }
 
@@ -37,10 +38,9 @@ public class DefinedOperationParser {
         return operationToParse instanceof DefinedOperation;
     }
 
-    private DefinedOperation parseUndefinedOperation(UndefinedOperationGroup operationToParse) {
-        undefinedOperationGroup = operationToParse;
+    private DefinedOperation parseUndefinedOperation() {
         if (hasNoSiblingsButHasChildren()) {
-            return parseOperation(undefinedOperationGroup.get(0));
+            return parseOperation(undefinedOperationsList.get(0));
         } else {
             searchForUndefinedOperation();
         }
@@ -48,22 +48,22 @@ public class DefinedOperationParser {
     }
 
     private boolean hasNoSiblingsButHasChildren() {
-        return undefinedOperationGroup.size() == 1;
+        return undefinedOperationsList.size() == 1;
     }
 
     private void searchForUndefinedOperation() {
-        undefinedOperationGroup.toEnd();
+        undefinedOperationsList.toEnd();
         while (canSearchForPreviousOperation()) {
             checkIfPreviousOperationIsUndefined();
         }
     }
 
     private boolean canSearchForPreviousOperation() {
-        return undefinedOperationGroup.hasPrevious() && undefinedOperandWasNotFound;
+        return undefinedOperationsList.hasPrevious() && undefinedOperandWasNotFound;
     }
 
     private void checkIfPreviousOperationIsUndefined() {
-        operationNow = undefinedOperationGroup.previous();
+        operationNow = undefinedOperationsList.previous();
         if (operationNow instanceof SingleUndefinedOperation) {
             undefinedOperandWasNotFound = false;
         }
@@ -79,13 +79,13 @@ public class DefinedOperationParser {
     }
 
     private void createLeftAndRightOperations() {
-        leftOperation = new DefinedOperationParser(undefinedOperationGroup.getLeftSubGroup())
+        leftOperation = new DefinedOperationParser(undefinedOperationsList.getLeftSubList())
                 .parseToDefinedOperation();
-        rightOperation = new DefinedOperationParser(undefinedOperationGroup.getRightSubGroup())
+        rightOperation = new DefinedOperationParser(undefinedOperationsList.getRightSubList())
                 .parseToDefinedOperation();
     }
 
-    public UndefinedOperationGroup getUndefinedOperationGroup() {
-        return (UndefinedOperationGroup) operation;
+    public UndefinedOperationsList getUndefinedOperationGroup() {
+        return (UndefinedOperationsList) operation;
     }
 }

@@ -2,52 +2,52 @@ package org.practice.app.parser.number;
 
 import org.practice.app.operation.Operation;
 import org.practice.app.operation.raw.UndefinedOperation;
-import org.practice.app.operation.raw.UndefinedOperationGroup;
+import org.practice.app.operation.raw.UndefinedOperationsList;
 
 public class NegativeNumberParser extends AbstractNumberParser {
     private static final char DASH_CHAR = '-';
-    private UndefinedOperationGroup undefinedOperationGroup;
+    private UndefinedOperationsList undefinedOperationsList;
 
-    public NegativeNumberParser(UndefinedOperationGroup undefinedOperationGroup) {
-        this.undefinedOperationGroup = undefinedOperationGroup;
+    public NegativeNumberParser(UndefinedOperationsList undefinedOperationsList) {
+        this.undefinedOperationsList = undefinedOperationsList;
     }
 
-    public UndefinedOperationGroup getUndefinedOperationGroup() {
-        return undefinedOperationGroup;
+    public UndefinedOperationsList getUndefinedOperationGroup() {
+        return undefinedOperationsList;
     }
 
     public PositiveNumberParser parseNegativeNumbers() {
-        undefinedOperationGroup.toStart();
+        undefinedOperationsList.toStart();
 
-        while (undefinedOperationGroup.hasNext()) {
-            ifOperationIsNegativeNumber_thenMakeItNumberOperation(undefinedOperationGroup.next());
+        while (undefinedOperationsList.hasNext()) {
+            ifOperationIsNegativeNumber_thenMakeItNumberOperation(undefinedOperationsList.next());
         }
 
-        return new PositiveNumberParser(undefinedOperationGroup);
+        return new PositiveNumberParser(undefinedOperationsList);
     }
 
     private void ifOperationIsNegativeNumber_thenMakeItNumberOperation(Operation currentOperation) {
         if (currentOperation instanceof UndefinedOperation) {
             if (negativeNumberStartsFrom(currentOperation)) {
-                undefinedOperationGroup = replaceCurrentUndefinedOperationInGroup_WithNumberOperation(undefinedOperationGroup);
+                undefinedOperationsList = replaceCurrentUndefinedOperationInGroup_WithNumberOperation(undefinedOperationsList);
             }
         }
     }
 
     private boolean negativeNumberStartsFrom(Operation currentUndefinedOperation) {
         return (((UndefinedOperation) currentUndefinedOperation).getValue() == DASH_CHAR
-                && previousOperationIsNotDigit(undefinedOperationGroup)
-                && nextOperationIsDigit(undefinedOperationGroup));
+                && previousOperationIsNotDigit(undefinedOperationsList)
+                && nextOperationIsDigit(undefinedOperationsList));
     }
 
-    private boolean previousOperationIsNotDigit(UndefinedOperationGroup group) {
+    private boolean previousOperationIsNotDigit(UndefinedOperationsList group) {
         if (group.hasPrevious() && group.getPrevious() instanceof UndefinedOperation) {
             return !operationIsDigit((UndefinedOperation) group.getPrevious());
         }
         return true;
     }
 
-    private boolean nextOperationIsDigit(UndefinedOperationGroup group) {
+    private boolean nextOperationIsDigit(UndefinedOperationsList group) {
         return group.hasNext()
                 && group.getNext() instanceof UndefinedOperation
                 && operationIsDigit((UndefinedOperation) group.getNext());

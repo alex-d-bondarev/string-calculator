@@ -1,15 +1,15 @@
 package org.practice.app.parser.parenthesis;
 
-import org.practice.app.operation.raw.UndefinedOperationGroup;
+import org.practice.app.operation.raw.UndefinedOperationsList;
 
 public abstract class Appender {
     protected boolean foundPositionForNewParenthesis;
     protected int appendedOperationPosition;
     protected int newParenthesisPosition;
-    protected UndefinedOperationGroup undefinedOperationGroup;
+    protected UndefinedOperationsList undefinedOperationsList;
 
-    public void append(UndefinedOperationGroup undefinedOperationGroup) {
-        initializeSearchForNewParenthesisPosition(undefinedOperationGroup);
+    public void append(UndefinedOperationsList undefinedOperationsList) {
+        initializeSearchForNewParenthesisPosition(undefinedOperationsList);
 
         while (newParenthesisPositionNotFound()) {
             checkForNewParenthesisPosition();
@@ -18,8 +18,8 @@ public abstract class Appender {
         addParenthesis();
     }
 
-    protected void initializeSearchForNewParenthesisPosition(UndefinedOperationGroup undefinedOperationGroup){
-        this.undefinedOperationGroup = undefinedOperationGroup;
+    protected void initializeSearchForNewParenthesisPosition(UndefinedOperationsList undefinedOperationsList){
+        this.undefinedOperationsList = undefinedOperationsList;
         foundPositionForNewParenthesis = false;
     }
 

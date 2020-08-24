@@ -9,7 +9,7 @@ import org.practice.app.operation.parsed.MultiplicationOperation;
 import org.practice.app.operation.parsed.NumberOperation;
 import org.practice.app.operation.parsed.SumOperation;
 import org.practice.app.operation.raw.SingleUndefinedOperation;
-import org.practice.app.operation.raw.UndefinedOperationGroup;
+import org.practice.app.operation.raw.UndefinedOperationsList;
 import org.practice.app.parser.operations.DefinedOperationParser;
 
 import java.util.ArrayList;
@@ -32,7 +32,7 @@ public class DefinedOperationParserTest {
         addUndefinedOperation('+');
         addNumberOneOperation();
 
-        UndefinedOperationGroup operationsGroup = new UndefinedOperationGroup(operations);
+        UndefinedOperationsList operationsGroup = new UndefinedOperationsList(operations);
         DefinedOperationParser parser = new DefinedOperationParser(operationsGroup);
 
         DefinedOperation result = parser.parseToDefinedOperation();
@@ -45,7 +45,7 @@ public class DefinedOperationParserTest {
         addUndefinedOperation('-');
         addNumberOneOperation();
 
-        UndefinedOperationGroup operationsGroup = new UndefinedOperationGroup(operations);
+        UndefinedOperationsList operationsGroup = new UndefinedOperationsList(operations);
         DefinedOperationParser parser = new DefinedOperationParser(operationsGroup);
 
         DefinedOperation result = parser.parseToDefinedOperation();
@@ -59,7 +59,7 @@ public class DefinedOperationParserTest {
         addUndefinedOperation('*');
         addNumberOneOperation();
 
-        UndefinedOperationGroup operationsGroup = new UndefinedOperationGroup(operations);
+        UndefinedOperationsList operationsGroup = new UndefinedOperationsList(operations);
         DefinedOperationParser parser = new DefinedOperationParser(operationsGroup);
 
         DefinedOperation result = parser.parseToDefinedOperation();
@@ -74,13 +74,13 @@ public class DefinedOperationParserTest {
     public void complexGroupCanBeParsed() {
         String expectedStringOperations = "1.0+2.0/4.0-3.0";
 
-        UndefinedOperationGroup leftGroup = createOperationsGroup(1d, '+', 2d);
-        UndefinedOperationGroup rightGroup = createOperationsGroup(4d, '-', 3d);
+        UndefinedOperationsList leftGroup = createOperationsGroup(1d, '+', 2d);
+        UndefinedOperationsList rightGroup = createOperationsGroup(4d, '-', 3d);
 
         operations.add(leftGroup);
         addUndefinedOperation('/');
         operations.add(rightGroup);
-        UndefinedOperationGroup operationsGroup = new UndefinedOperationGroup(operations);
+        UndefinedOperationsList operationsGroup = new UndefinedOperationsList(operations);
 
         DefinedOperationParser parser = new DefinedOperationParser(operationsGroup);
         String actualStringOperations = parser.parseToDefinedOperation().toString();
@@ -88,12 +88,12 @@ public class DefinedOperationParserTest {
         assertEquals(expectedStringOperations, actualStringOperations);
     }
 
-    private UndefinedOperationGroup createOperationsGroup(double v, char c, double v2) {
+    private UndefinedOperationsList createOperationsGroup(double v, char c, double v2) {
         List<Operation> group = new ArrayList<>();
         group.add(new NumberOperation(v));
         group.add(new SingleUndefinedOperation(c));
         group.add(new NumberOperation(v2));
-        return new UndefinedOperationGroup(group);
+        return new UndefinedOperationsList(group);
     }
 
     private void addNumberOneOperation() {

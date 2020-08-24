@@ -3,7 +3,7 @@ package org.practice.app.parser;
 import org.junit.Test;
 import org.practice.app.operation.Operation;
 import org.practice.app.operation.raw.SingleUndefinedOperation;
-import org.practice.app.operation.raw.UndefinedOperationGroup;
+import org.practice.app.operation.raw.UndefinedOperationsList;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -19,7 +19,7 @@ public class ExpressionMapperTest {
         String expression = "2";
         int expectedOperationsSize = 1;
 
-        UndefinedOperationGroup actualGroup = getUndefinedOperationGroupFromExpression(expression);
+        UndefinedOperationsList actualGroup = getUndefinedOperationGroupFromExpression(expression);
 
         assertThat(actualGroup.size(), is(expectedOperationsSize));
     }
@@ -29,7 +29,7 @@ public class ExpressionMapperTest {
         String expression = "2+2";
         int expectedOperationsSize = 3;
 
-        UndefinedOperationGroup actualGroup = getUndefinedOperationGroupFromExpression(expression);
+        UndefinedOperationsList actualGroup = getUndefinedOperationGroupFromExpression(expression);
 
         assertThat(actualGroup.size(), is(expectedOperationsSize));
     }
@@ -38,17 +38,17 @@ public class ExpressionMapperTest {
     public void testUndefinedOperationsOrderIsKept() {
         String testExpression = "1+2*3";
 
-        UndefinedOperationGroup expectedGroup = getTestUndefinedOperationGroup();
-        UndefinedOperationGroup actualGroup = getUndefinedOperationGroupFromExpression(testExpression);
+        UndefinedOperationsList expectedGroup = getTestUndefinedOperationGroup();
+        UndefinedOperationsList actualGroup = getUndefinedOperationGroupFromExpression(testExpression);
 
         assertEquals(expectedGroup, actualGroup);
     }
 
-    private UndefinedOperationGroup getUndefinedOperationGroupFromExpression(String expression) {
+    private UndefinedOperationsList getUndefinedOperationGroupFromExpression(String expression) {
         return new ExpressionMapper(expression).mapToUndefinedOperations().getUndefinedOperationGroup();
     }
 
-    private UndefinedOperationGroup getTestUndefinedOperationGroup() {
+    private UndefinedOperationsList getTestUndefinedOperationGroup() {
         List<Operation> orderedList = new LinkedList<>();
 
         orderedList.add(getUndefinedOperationParser('1'));
@@ -57,7 +57,7 @@ public class ExpressionMapperTest {
         orderedList.add(getUndefinedOperationParser('*'));
         orderedList.add(getUndefinedOperationParser('3'));
 
-        return new UndefinedOperationGroup(orderedList);
+        return new UndefinedOperationsList(orderedList);
     }
 
     private SingleUndefinedOperation getUndefinedOperationParser(char ch) {

@@ -6,7 +6,7 @@ import org.practice.app.operation.Operation;
 import org.practice.app.operation.parsed.NumberOperation;
 import org.practice.app.operation.raw.SingleUndefinedOperation;
 import org.practice.app.operation.raw.UndefinedOperation;
-import org.practice.app.operation.raw.UndefinedOperationGroup;
+import org.practice.app.operation.raw.UndefinedOperationsList;
 import org.practice.app.parser.operations.DefinedOperationParser;
 import org.practice.app.parser.parenthesis.ParenthesisParser;
 
@@ -60,9 +60,9 @@ public class ParenthesisParserTest {
         addUndefinedOperation(')');
 
         DefinedOperationParser parser = parseOperations();
-        assertTrue(getOperationFromParserByIndex(parser, 0) instanceof UndefinedOperationGroup);
+        assertTrue(getOperationFromParserByIndex(parser, 0) instanceof UndefinedOperationsList);
 
-        List<Operation> subGroup = ((UndefinedOperationGroup) getOperationFromParserByIndex(parser, 0)).getOperations();
+        List<Operation> subGroup = ((UndefinedOperationsList) getOperationFromParserByIndex(parser, 0)).getOperations();
         assertTrue(subGroup.get(0) instanceof NumberOperation);
         assertTrue(subGroup.get(1) instanceof UndefinedOperation);
         assertTrue(subGroup.get(2) instanceof NumberOperation);
@@ -89,7 +89,7 @@ public class ParenthesisParserTest {
     }
 
     private DefinedOperationParser parseOperations() {
-        return new ParenthesisParser(new UndefinedOperationGroup(operations)).parseParenthesis();
+        return new ParenthesisParser(new UndefinedOperationsList(operations)).parseParenthesis();
     }
 
     private DefinedOperationParser parseExpression(String expression) {

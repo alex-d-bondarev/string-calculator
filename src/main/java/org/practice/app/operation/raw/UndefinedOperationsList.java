@@ -5,13 +5,13 @@ import org.practice.app.operation.Operation;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UndefinedOperationGroup implements UndefinedOperation {
+public class UndefinedOperationsList implements UndefinedOperation {
     private static final int START_POSITION = -1;
     private static final char VALUE = '_';
     private final List<Operation> operations;
     private int position = START_POSITION;
 
-    public UndefinedOperationGroup(List<Operation> operations){
+    public UndefinedOperationsList(List<Operation> operations){
         this.operations = operations;
     }
 
@@ -23,7 +23,7 @@ public class UndefinedOperationGroup implements UndefinedOperation {
         return operations;
     }
 
-    public List<Operation> subGroup(int start, int end){
+    public List<Operation> subList(int start, int end){
         return operations.subList(start, end);
     }
 
@@ -47,7 +47,7 @@ public class UndefinedOperationGroup implements UndefinedOperation {
         return position > 0;
     }
 
-    public Operation getCurrent(){
+    public Operation getCurrentOperation(){
         return operations.get(position);
     }
 
@@ -59,16 +59,16 @@ public class UndefinedOperationGroup implements UndefinedOperation {
         return operations.get(++position);
     }
 
+    public Operation previous(){
+        return operations.get(--position);
+    }
+
     public Operation getPrevious(){
         return operations.get(position - 1);
     }
 
     public Operation getNext(){
         return operations.get(position + 1);
-    }
-
-    public Operation previous(){
-        return operations.get(--position);
     }
 
     public int getPosition(){
@@ -79,14 +79,14 @@ public class UndefinedOperationGroup implements UndefinedOperation {
         position = newPosition;
     }
 
-    public UndefinedOperationGroup replaceByIndex(Operation newOperation, int from, int to){
+    public UndefinedOperationsList replace(Operation newOperation, int from, int to){
         operations.subList(from, to).clear();
         operations.add(from, newOperation);
         position = from + 1;
         return this;
     }
 
-    public void addOperationTo(Operation newOperation, int index){
+    public void add(int index, Operation newOperation){
         operations.add(index, newOperation);
     }
 
@@ -96,12 +96,11 @@ public class UndefinedOperationGroup implements UndefinedOperation {
             return true;
         }
 
-        if (!(o instanceof UndefinedOperationGroup)) {
+        if (!(o instanceof UndefinedOperationsList)) {
             return false;
         }
 
-        UndefinedOperationGroup other = (UndefinedOperationGroup) o;
-
+        UndefinedOperationsList other = (UndefinedOperationsList) o;
         return operations.equals(other.getOperations());
     }
 
@@ -110,11 +109,11 @@ public class UndefinedOperationGroup implements UndefinedOperation {
         return operations.toString();
     }
 
-    public UndefinedOperationGroup getLeftSubGroup() {
-        return new UndefinedOperationGroup(new ArrayList<>(operations.subList(0, position)));
+    public UndefinedOperationsList getLeftSubList() {
+        return new UndefinedOperationsList(new ArrayList<>(operations.subList(0, position)));
     }
 
-    public UndefinedOperationGroup getRightSubGroup() {
-        return new UndefinedOperationGroup(new ArrayList<>(operations.subList(position+1, operations.size())));
+    public UndefinedOperationsList getRightSubList() {
+        return new UndefinedOperationsList(new ArrayList<>(operations.subList(position+1, operations.size())));
     }
 }

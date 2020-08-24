@@ -5,7 +5,7 @@ import org.junit.Test;
 import org.practice.app.operation.Operation;
 import org.practice.app.operation.parsed.NumberOperation;
 import org.practice.app.operation.raw.SingleUndefinedOperation;
-import org.practice.app.operation.raw.UndefinedOperationGroup;
+import org.practice.app.operation.raw.UndefinedOperationsList;
 import org.practice.app.parser.parenthesis.ParenthesisForPriorityOperandsParser;
 import org.practice.app.parser.parenthesis.ParenthesisParser;
 
@@ -123,7 +123,7 @@ public class ParenthesisForPriorityOperandsParserTest {
     }
 
     private ParenthesisParser parseOperations() {
-        UndefinedOperationGroup operationsGroup = new UndefinedOperationGroup(operations);
+        UndefinedOperationsList operationsGroup = new UndefinedOperationsList(operations);
         return new ParenthesisForPriorityOperandsParser(operationsGroup).parsePriorityOperands();
     }
 }

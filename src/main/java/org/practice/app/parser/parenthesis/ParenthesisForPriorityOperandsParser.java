@@ -3,33 +3,33 @@ package org.practice.app.parser.parenthesis;
 import org.practice.app.operation.Operation;
 import org.practice.app.operation.raw.SingleUndefinedOperation;
 import org.practice.app.operation.raw.UndefinedOperation;
-import org.practice.app.operation.raw.UndefinedOperationGroup;
+import org.practice.app.operation.raw.UndefinedOperationsList;
 
 public class ParenthesisForPriorityOperandsParser {
     private static final String PRIORITY_OPERANDS = "*/";
 
-    private final UndefinedOperationGroup undefinedOperationGroup;
+    private final UndefinedOperationsList undefinedOperationsList;
     private final OpeningParenthesisAppender openingParenthesis;
     private final ClosingParenthesisAppender closingParenthesis;
 
-    public ParenthesisForPriorityOperandsParser(UndefinedOperationGroup operationsGroup) {
-        undefinedOperationGroup = operationsGroup;
+    public ParenthesisForPriorityOperandsParser(UndefinedOperationsList operationsGroup) {
+        undefinedOperationsList = operationsGroup;
         openingParenthesis = new OpeningParenthesisAppender();
         closingParenthesis = new ClosingParenthesisAppender();
     }
 
     public ParenthesisParser parsePriorityOperands() {
-        undefinedOperationGroup.toStart();
+        undefinedOperationsList.toStart();
 
-        while (undefinedOperationGroup.hasNext()) {
+        while (undefinedOperationsList.hasNext()) {
             ifNextOperationIsPriorityOperand_thenSurroundWithParenthesis();
         }
 
-        return new ParenthesisParser(undefinedOperationGroup);
+        return new ParenthesisParser(undefinedOperationsList);
     }
 
     private void ifNextOperationIsPriorityOperand_thenSurroundWithParenthesis() {
-        Operation operation = undefinedOperationGroup.next();
+        Operation operation = undefinedOperationsList.next();
         if (operation instanceof SingleUndefinedOperation
                 && thisIsPriorityOperand(operation)) {
             surroundWithParenthesis();
@@ -37,15 +37,15 @@ public class ParenthesisForPriorityOperandsParser {
     }
 
     private void surroundWithParenthesis() {
-        openingParenthesis.append(undefinedOperationGroup);
-        closingParenthesis.append(undefinedOperationGroup);
+        openingParenthesis.append(undefinedOperationsList);
+        closingParenthesis.append(undefinedOperationsList);
     }
 
     private boolean thisIsPriorityOperand(Operation currentOperation) {
         return PRIORITY_OPERANDS.indexOf(((UndefinedOperation) currentOperation).getValue()) >= 0;
     }
 
-    public UndefinedOperationGroup getUndefinedOperationGroup() {
-        return undefinedOperationGroup;
+    public UndefinedOperationsList getUndefinedOperationGroup() {
+        return undefinedOperationsList;
     }
 }

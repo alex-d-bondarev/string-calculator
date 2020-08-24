@@ -2,33 +2,33 @@ package org.practice.app.parser.number;
 
 import org.practice.app.operation.parsed.NumberOperation;
 import org.practice.app.operation.raw.UndefinedOperation;
-import org.practice.app.operation.raw.UndefinedOperationGroup;
+import org.practice.app.operation.raw.UndefinedOperationsList;
 
 public abstract class AbstractNumberParser {
 
-    private UndefinedOperationGroup group;
+    private UndefinedOperationsList operations;
     private String textNumber;
     private int from;
     private int to;
 
-    protected UndefinedOperationGroup replaceCurrentUndefinedOperationInGroup_WithNumberOperation(UndefinedOperationGroup group) {
-        this.group = group;
+    protected UndefinedOperationsList replaceCurrentUndefinedOperationInGroup_WithNumberOperation(UndefinedOperationsList operations) {
+        this.operations = operations;
 
         calculateSubListIndex();
         return replaceSublistOfUndefinedOperationsWithNumberOperation();
     }
 
     private void calculateSubListIndex() {
-        from = group.getPosition();
+        from = operations.getPosition();
         extractTextNumberStartingWithGivenOperation();
         to = from + textNumber.length();
     }
 
     private void extractTextNumberStartingWithGivenOperation() {
-        textNumber = Character.toString(((UndefinedOperation) group.getCurrent()).getValue());
+        textNumber = Character.toString(((UndefinedOperation) operations.getCurrentOperation()).getValue());
 
-        while (group.hasNext()) {
-            char operationValue = ((UndefinedOperation) group.next()).getValue();
+        while (operations.hasNext()) {
+            char operationValue = ((UndefinedOperation) operations.next()).getValue();
 
             if (Character.isDigit(operationValue)) {
                 textNumber += operationValue;
@@ -38,8 +38,8 @@ public abstract class AbstractNumberParser {
         }
     }
 
-    private UndefinedOperationGroup replaceSublistOfUndefinedOperationsWithNumberOperation() {
+    private UndefinedOperationsList replaceSublistOfUndefinedOperationsWithNumberOperation() {
         NumberOperation numberOperation = new NumberOperation(Double.parseDouble(textNumber));
-        return group.replaceByIndex(numberOperation, from, to);
+        return operations.replace(numberOperation, from, to);
     }
 }

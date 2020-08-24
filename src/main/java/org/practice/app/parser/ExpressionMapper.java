@@ -1,7 +1,7 @@
 package org.practice.app.parser;
 
 import org.practice.app.operation.raw.SingleUndefinedOperation;
-import org.practice.app.operation.raw.UndefinedOperationGroup;
+import org.practice.app.operation.raw.UndefinedOperationsList;
 import org.practice.app.parser.number.NegativeNumberParser;
 
 import java.util.ArrayList;
@@ -15,13 +15,13 @@ public class ExpressionMapper {
     }
 
     public NegativeNumberParser mapToUndefinedOperations() {
-        UndefinedOperationGroup undefinedOperationGroup =
-                new UndefinedOperationGroup(
+        UndefinedOperationsList undefinedOperationsList =
+                new UndefinedOperationsList(
                         expression
                                 .chars()
                                 .mapToObj(ch -> new SingleUndefinedOperation((char) ch))
                                 .collect(Collectors.toCollection(ArrayList::new)));
 
-        return new NegativeNumberParser(undefinedOperationGroup);
+        return new NegativeNumberParser(undefinedOperationsList);
     }
 }

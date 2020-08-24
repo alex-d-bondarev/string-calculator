@@ -2,34 +2,34 @@ package org.practice.app.parser.parenthesis;
 
 import org.practice.app.operation.Operation;
 import org.practice.app.operation.raw.UndefinedOperation;
-import org.practice.app.operation.raw.UndefinedOperationGroup;
+import org.practice.app.operation.raw.UndefinedOperationsList;
 import org.practice.app.parser.operations.DefinedOperationParser;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ParenthesisParser {
-    private UndefinedOperationGroup undefinedOperationGroup;
+    private UndefinedOperationsList undefinedOperationsList;
     private Operation operation;
 
     private int parenthesisStart = 0;
     private int parenthesisEnd = 0;
 
-    public ParenthesisParser(UndefinedOperationGroup undefinedOperationGroup) {
-        this.undefinedOperationGroup = undefinedOperationGroup;
+    public ParenthesisParser(UndefinedOperationsList undefinedOperationsList) {
+        this.undefinedOperationsList = undefinedOperationsList;
     }
 
     public DefinedOperationParser parseParenthesis() {
         startFromBeginning();
-        while (undefinedOperationGroup.hasNext()) {
+        while (undefinedOperationsList.hasNext()) {
             updateParenthesisGroups();
         }
 
-        return new DefinedOperationParser(undefinedOperationGroup);
+        return new DefinedOperationParser(undefinedOperationsList);
     }
 
     private void updateParenthesisGroups() {
-        operation = undefinedOperationGroup.next();
+        operation = undefinedOperationsList.next();
 
         if (notANumber()) {
             ifParenthesis_thenUpdateParenthesisPosition();
@@ -53,10 +53,10 @@ public class ParenthesisParser {
 
     private void convertExpressionInBracketsIntoSubgroup() {
         List<Operation> subOperations = new ArrayList<>(
-                undefinedOperationGroup.subGroup(parenthesisStart + 1, parenthesisEnd));
+                undefinedOperationsList.subList(parenthesisStart + 1, parenthesisEnd));
 
-        undefinedOperationGroup = undefinedOperationGroup
-                .replaceByIndex(new UndefinedOperationGroup(subOperations), parenthesisStart, parenthesisEnd + 1);
+        undefinedOperationsList = undefinedOperationsList
+                .replace(new UndefinedOperationsList(subOperations), parenthesisStart, parenthesisEnd + 1);
     }
 
     private boolean parenthesisSurroundsOnly1Number() {
@@ -64,8 +64,8 @@ public class ParenthesisParser {
     }
 
     private void removeExtraParenthesis() {
-        undefinedOperationGroup = undefinedOperationGroup.replaceByIndex(
-                undefinedOperationGroup.getPrevious(), parenthesisStart, parenthesisEnd + 1);
+        undefinedOperationsList = undefinedOperationsList.replace(
+                undefinedOperationsList.getPrevious(), parenthesisStart, parenthesisEnd + 1);
     }
 
     private void ifParenthesis_thenUpdateParenthesisPosition() {
@@ -78,20 +78,20 @@ public class ParenthesisParser {
     }
 
     private void updateParenthesisEnd() {
-        parenthesisEnd = undefinedOperationGroup.getPosition();
+        parenthesisEnd = undefinedOperationsList.getPosition();
     }
 
     private void updateParenthesisStart() {
-        parenthesisStart = undefinedOperationGroup.getPosition();
+        parenthesisStart = undefinedOperationsList.getPosition();
     }
 
     private void startFromBeginning() {
-        undefinedOperationGroup.toStart();
+        undefinedOperationsList.toStart();
         parenthesisStart = 0;
         parenthesisEnd = 0;
     }
 
-    public UndefinedOperationGroup getUndefinedOperationGroup() {
-        return undefinedOperationGroup;
+    public UndefinedOperationsList getUndefinedOperationGroup() {
+        return undefinedOperationsList;
     }
 }
