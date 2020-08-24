@@ -6,7 +6,6 @@ import org.practice.app.operation.raw.UndefinedOperation;
 import org.practice.app.operation.raw.UndefinedOperationGroup;
 
 public class OpeningParenthesisAppender extends Appender {
-    private int closingParenthesisAmount;
 
     @Override
     protected boolean newParenthesisPositionNotFound() {
@@ -19,7 +18,6 @@ public class OpeningParenthesisAppender extends Appender {
 
         appendedOperationPosition = undefinedOperationGroup.getPosition() + 1;
         newParenthesisPosition = 0;
-        closingParenthesisAmount = 0;
     }
 
     @Override
@@ -27,16 +25,8 @@ public class OpeningParenthesisAppender extends Appender {
         Operation operation = undefinedOperationGroup.previous();
 
         if (operation instanceof UndefinedOperation) {
-            UndefinedOperation undefinedOperation = (UndefinedOperation) operation;
-
-            if (undefinedOperation.getValue() == Parenthesis.CLOSING) {
-                closingParenthesisAmount++;
-            } else if (closingParenthesisAmount > 0 && undefinedOperation.getValue() == Parenthesis.OPENING) {
-                closingParenthesisAmount--;
-            } else {
-                newParenthesisPosition = undefinedOperationGroup.getPosition() + 1;
-                foundPositionForNewParenthesis = true;
-            }
+            newParenthesisPosition = undefinedOperationGroup.getPosition() + 1;
+            foundPositionForNewParenthesis = true;
         }
     }
 

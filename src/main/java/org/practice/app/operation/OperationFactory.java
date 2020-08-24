@@ -18,9 +18,8 @@ public class OperationFactory {
             case '*':
                 return new MultiplicationOperation(leftOperation, rightOperation);
             case '/':
-                return new DivisionOperation(leftOperation, rightOperation);
             default:
-                throw new RuntimeException("Unexpected operation: " + operand);
+                return new DivisionOperation(leftOperation, rightOperation);
         }
     }
 }

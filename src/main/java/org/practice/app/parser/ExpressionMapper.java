@@ -17,10 +17,10 @@ public class ExpressionMapper {
     public NegativeNumberParser mapToUndefinedOperations() {
         UndefinedOperationGroup undefinedOperationGroup =
                 new UndefinedOperationGroup(
-                        expression.
-                                chars().
-                                mapToObj(ch -> new SingleUndefinedOperation((char) ch)).
-                                collect(Collectors.toCollection(ArrayList::new)));
+                        expression
+                                .chars()
+                                .mapToObj(ch -> new SingleUndefinedOperation((char) ch))
+                                .collect(Collectors.toCollection(ArrayList::new)));
 
         return new NegativeNumberParser(undefinedOperationGroup);
     }

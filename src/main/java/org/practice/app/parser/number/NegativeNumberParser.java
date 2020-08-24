@@ -48,10 +48,10 @@ public class NegativeNumberParser extends AbstractNumberParser {
     }
 
     private boolean nextOperationIsDigit(UndefinedOperationGroup group) {
-        if (group.hasNext() && group.getNext() instanceof UndefinedOperation) {
-            return operationIsDigit((UndefinedOperation) group.getNext());
-        }
-        return false;
+        return group.hasNext()
+                && group.getNext() instanceof UndefinedOperation
+                && operationIsDigit((UndefinedOperation) group.getNext());
+
     }
 
     private boolean operationIsDigit(UndefinedOperation operation) {

@@ -16,10 +16,6 @@ public class PositiveNumberParser extends AbstractNumberParser {
         return undefinedOperationGroup;
     }
 
-    public ParenthesisForPriorityOperandsParser getPriorityOperandsParser() {
-        return new ParenthesisForPriorityOperandsParser(undefinedOperationGroup);
-    }
-
     public ParenthesisForPriorityOperandsParser parsePositiveNumbers() {
         undefinedOperationGroup.toStart();
 

@@ -54,6 +54,7 @@ public class DefinedOperationParserTest {
 
     @Test
     public void multiplicationOperationIsCreated() {
+        String expectedStringOperations = "1.0*1.0";
         addNumberOneOperation();
         addUndefinedOperation('*');
         addNumberOneOperation();
@@ -63,6 +64,10 @@ public class DefinedOperationParserTest {
 
         DefinedOperation result = parser.parseToDefinedOperation();
         assertTrue(result instanceof MultiplicationOperation);
+
+        String actualStringOperations = result.toString();
+
+        assertEquals(expectedStringOperations, actualStringOperations);
     }
 
     @Test

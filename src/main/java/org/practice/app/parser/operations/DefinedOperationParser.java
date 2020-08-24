@@ -56,9 +56,6 @@ public class DefinedOperationParser {
         while (canSearchForPreviousOperation()) {
             checkIfPreviousOperationIsUndefined();
         }
-        if(undefinedOperandWasNotFound) {
-            throw new RuntimeException("Unexpected group of operations: " + undefinedOperationGroup);
-        }
     }
 
     private boolean canSearchForPreviousOperation() {
