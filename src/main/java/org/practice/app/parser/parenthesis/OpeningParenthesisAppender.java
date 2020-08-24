@@ -5,7 +5,7 @@ import org.practice.app.operation.raw.SingleUndefinedOperation;
 import org.practice.app.operation.raw.UndefinedOperation;
 import org.practice.app.operation.raw.UndefinedOperationsList;
 
-public class OpeningParenthesisAppender extends Appender {
+public class OpeningParenthesisAppender extends ParenthesisAppender {
 
     @Override
     protected boolean newParenthesisPositionNotFound() {

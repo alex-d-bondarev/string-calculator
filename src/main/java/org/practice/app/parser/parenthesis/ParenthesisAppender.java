@@ -2,7 +2,7 @@ package org.practice.app.parser.parenthesis;
 
 import org.practice.app.operation.raw.UndefinedOperationsList;
 
-public abstract class Appender {
+public abstract class ParenthesisAppender {
     protected boolean foundPositionForNewParenthesis;
     protected int appendedOperationPosition;
     protected int newParenthesisPosition;

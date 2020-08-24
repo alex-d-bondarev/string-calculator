@@ -20,20 +20,21 @@ public abstract class AbstractNumberParser {
 
     private void calculateSubListIndex() {
         from = operations.getPosition();
-        extractTextNumberStartingWithGivenOperation();
+        extractTextNumberStartingWithGivenPosition();
         to = from + textNumber.length();
     }
 
-    private void extractTextNumberStartingWithGivenOperation() {
+    private void extractTextNumberStartingWithGivenPosition() {
+        boolean isNumberNow = true;
         textNumber = Character.toString(((UndefinedOperation) operations.getCurrentOperation()).getValue());
 
-        while (operations.hasNext()) {
+        while (operations.hasNext() && isNumberNow) {
             char operationValue = ((UndefinedOperation) operations.next()).getValue();
 
             if (Character.isDigit(operationValue)) {
                 textNumber += operationValue;
             } else {
-                break;
+                isNumberNow = false;
             }
         }
     }

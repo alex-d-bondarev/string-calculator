@@ -5,7 +5,7 @@ import org.practice.app.operation.raw.SingleUndefinedOperation;
 import org.practice.app.operation.raw.UndefinedOperation;
 import org.practice.app.operation.raw.UndefinedOperationsList;
 
-public class ClosingParenthesisAppender extends Appender {
+public class ClosingParenthesisAppender extends ParenthesisAppender {
     private int openingParenthesisAmount;
 
     @Override

@@ -22,18 +22,18 @@ public class ParenthesisParser {
     public DefinedOperationParser parseParenthesis() {
         startFromBeginning();
         while (undefinedOperationsList.hasNext()) {
-            updateParenthesisGroups();
+            updateParenthesisPairs();
         }
 
         return new DefinedOperationParser(undefinedOperationsList);
     }
 
-    private void updateParenthesisGroups() {
+    private void updateParenthesisPairs() {
         operation = undefinedOperationsList.next();
 
         if (notANumber()) {
             ifParenthesis_thenUpdateParenthesisPosition();
-            ifParenthesisGroupIdentified_thenConvertToSubgroup();
+            ifParenthesisPairIdentified_thenConvertToSublist();
         }
     }
 
@@ -41,22 +41,25 @@ public class ParenthesisParser {
         return operation instanceof UndefinedOperation;
     }
 
-    private void ifParenthesisGroupIdentified_thenConvertToSubgroup() {
+    private void ifParenthesisPairIdentified_thenConvertToSublist() {
         if (parenthesisSurroundsOnly1Number()) {
             removeExtraParenthesis();
             startFromBeginning();
         } else if (parenthesisStart < parenthesisEnd) {
-            convertExpressionInBracketsIntoSubgroup();
+            convertExpressionInBracketsIntoSublist();
             startFromBeginning();
         }
     }
 
-    private void convertExpressionInBracketsIntoSubgroup() {
+    private void convertExpressionInBracketsIntoSublist() {
         List<Operation> subOperations = new ArrayList<>(
                 undefinedOperationsList.subList(parenthesisStart + 1, parenthesisEnd));
 
         undefinedOperationsList = undefinedOperationsList
-                .replace(new UndefinedOperationsList(subOperations), parenthesisStart, parenthesisEnd + 1);
+                .replace(
+                        new UndefinedOperationsList(subOperations)
+                        , parenthesisStart
+                        , parenthesisEnd + 1);
     }
 
     private boolean parenthesisSurroundsOnly1Number() {
@@ -91,7 +94,7 @@ public class ParenthesisParser {
         parenthesisEnd = 0;
     }
 
-    public UndefinedOperationsList getUndefinedOperationGroup() {
+    public UndefinedOperationsList getUndefinedOperationsList() {
         return undefinedOperationsList;
     }
 }

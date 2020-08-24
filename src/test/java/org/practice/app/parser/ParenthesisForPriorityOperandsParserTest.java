@@ -113,12 +113,12 @@ public class ParenthesisForPriorityOperandsParserTest {
     }
 
     private void assertOperationsAmount(int expectedOperationsAmount, ParenthesisParser parser) {
-        int actualOperationsAmount = parser.getUndefinedOperationGroup().size();
+        int actualOperationsAmount = parser.getUndefinedOperationsList().size();
         assertEquals(expectedOperationsAmount, actualOperationsAmount);
     }
 
     private void assertOperationValues(String expectedParsingResult, ParenthesisParser parser) {
-        String actualParsingResult = parser.getUndefinedOperationGroup().toString();
+        String actualParsingResult = parser.getUndefinedOperationsList().toString();
         assertEquals(expectedParsingResult, actualParsingResult);
     }
 

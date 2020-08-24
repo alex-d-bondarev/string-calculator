@@ -2,7 +2,7 @@ package org.practice.app.operation.parsed;
 
 public class NumberOperation implements DefinedOperation {
 
-    private double number;
+    private final double number;
 
     public NumberOperation(double number){
         this.number = number;
