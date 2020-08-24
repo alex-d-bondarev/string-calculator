@@ -82,7 +82,7 @@ public class UndefinedOperationsList implements UndefinedOperation {
     public UndefinedOperationsList replace(Operation newOperation, int from, int to){
         operations.subList(from, to).clear();
         operations.add(from, newOperation);
-        position = from + 1;
+        position = from;
         return this;
     }
 

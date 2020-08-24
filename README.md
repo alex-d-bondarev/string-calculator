@@ -15,8 +15,7 @@ This calculator parses given String expression and calculates its result. Input 
 - Opening and closing brackets _(are processed as equal)_ **(** **)**, **{** **}** and **\[** **\]**  
 - Spaces
 
-How it works
-------------
+## How it works
 
 1. Prepare expression for being parsed
     1. Remove all spaces
@@ -48,3 +47,24 @@ Second option is easier and simplifies the code:
 1. expression like "10 - 2 + 4 - 5 + 6 = 13" will be calculated as "((((10 - 2) + 4) - 5) + 6) = 13"
 1. expression like "10 - 2 - 4 + 5 - 6 = 3" will be calculated as "((((10 - 2) - 4) + 5) - 6) = 3"
 ```
+
+## Maintenance
+
+**Code changes should not break existing tests.**   
+Tests are triggered during project build. Build status should be _BUILD SUCCESS_
+```bash
+mvn clean test
+```
+**Test coverage is not necessary 100%, but should be high:**  
+Can be checked through IDE. Current coverage is:
+- Class: 95%
+- Method: 100%
+- Line: 98%
+
+**Test mutation should be at high level:**
+```bash
+mvn -DwithHistory org.pitest:pitest-maven:mutationCoverage
+```
+Current score is:
+- Line Coverage = 99%
+- Mutation Coverage = 93%
